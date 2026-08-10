@@ -584,7 +584,7 @@ function backToUserSelect() {
   document.getElementById('login-user-select').classList.remove('hidden');
 }
 
-/** Show welcome animation then enter desktop */
+/** Show welcome animation then enter the correct destination */
 function showWelcome(user, displayName) {
   // Hide all panels
   document.getElementById('login-user-select').classList.add('hidden');
@@ -598,8 +598,18 @@ function showWelcome(user, displayName) {
   nameEl.textContent  = `Welcome, ${displayName}`;
   welcome.classList.remove('hidden');
 
-  // After ~2.2 s boot into the desktop
-  setTimeout(() => enterDesktop(), 2200);
+  // Aman (admin) → redirect to admin.html
+  // Guest        → reveal the regular desktop inline
+  setTimeout(() => {
+    if (user === 'aman') {
+      // Fade everything to black then navigate
+      document.body.style.transition = 'opacity 0.6s ease';
+      document.body.style.opacity    = '0';
+      setTimeout(() => { window.location.href = 'admin.html'; }, 650);
+    } else {
+      enterDesktop();
+    }
+  }, 2200);
 }
 
 /** Fade login screen out, reveal desktop */
@@ -621,6 +631,10 @@ function enterDesktop() {
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Admin page: skip index.html-specific init entirely ──
+  // admin.js handles all wiring on admin.html
+  if (document.body.classList.contains('admin-body')) return;
 
   // ── Boot/Login sequence ───────────────────────────────
   // Keep desktop invisible until the user logs in

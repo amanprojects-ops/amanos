@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AmanOS — Admin</title>
+  <link rel="stylesheet" href="assets/css/os.css" />
+  <link rel="stylesheet" href="assets/css/desktop.css" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body class="admin-body">
+
+<!-- ===== WELCOME TRANSITION SCREEN ===== -->
+<div id="admin-welcome" class="admin-welcome-screen">
+  <div class="awelcome-avatar">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="aw1" cx="40%" cy="30%" r="65%">
+          <stop offset="0%" stop-color="#fde8c8"/>
+          <stop offset="100%" stop-color="#d4956a"/>
+        </radialGradient>
+        <linearGradient id="aw2" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#5ab4f0"/>
+          <stop offset="100%" stop-color="#1565c0"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="32" cy="56" rx="22" ry="12" fill="url(#aw2)"/>
+      <ellipse cx="32" cy="48" rx="17" ry="10" fill="url(#aw2)"/>
+      <rect x="27" y="33" width="10" height="9" rx="4" fill="url(#aw1)"/>
+      <circle cx="32" cy="27" r="14" fill="url(#aw1)"/>
+      <ellipse cx="32" cy="15" rx="14" ry="7" fill="#5a3010"/>
+      <ellipse cx="19" cy="22" rx="5" ry="9" fill="#5a3010"/>
+      <ellipse cx="45" cy="22" rx="5" ry="9" fill="#5a3010"/>
+      <ellipse cx="27" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+      <ellipse cx="37" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+      <circle cx="28" cy="26" r="0.8" fill="#fff"/>
+      <circle cx="38" cy="26" r="0.8" fill="#fff"/>
+      <path d="M27 31 Q32 35 37 31" stroke="#b07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="awelcome-name">Welcome, Aman</div>
+  <div class="awelcome-role">Administrator</div>
+  <div class="boot-spinner">
+    <div class="boot-dot"></div><div class="boot-dot"></div><div class="boot-dot"></div>
+    <div class="boot-dot"></div><div class="boot-dot"></div>
+  </div>
+</div>
+
+<!-- ===== ADMIN DESKTOP ===== -->
+<div id="admin-desktop" class="desktop admin-desktop--hidden">
+
+  <!-- Desktop Icons -->
+  <div class="desktop-icons-area">
+
+    <div class="desktop-icon" data-window="win-dashboard" tabindex="0" aria-label="Dashboard">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dg1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#64c8ff"/><stop offset="100%" stop-color="#1565c0"/>
+            </linearGradient>
+          </defs>
+          <rect x="3" y="3" width="20" height="20" rx="3" fill="url(#dg1)"/>
+          <rect x="25" y="3" width="20" height="9" rx="3" fill="url(#dg1)" opacity=".8"/>
+          <rect x="25" y="14" width="20" height="9" rx="3" fill="url(#dg1)" opacity=".6"/>
+          <rect x="3" y="25" width="9" height="20" rx="3" fill="url(#dg1)" opacity=".6"/>
+          <rect x="14" y="25" width="31" height="20" rx="3" fill="url(#dg1)" opacity=".8"/>
+        </svg>
+      </div>
+      <div class="label">Dashboard</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-users" tabindex="0" aria-label="Users">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ug-a" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#a8d8f8"/><stop offset="100%" stop-color="#1a7bc4"/>
+            </linearGradient>
+          </defs>
+          <circle cx="18" cy="16" r="9" fill="url(#ug-a)"/>
+          <ellipse cx="18" cy="36" rx="14" ry="8" fill="url(#ug-a)" opacity=".9"/>
+          <circle cx="34" cy="18" r="7" fill="url(#ug-a)" opacity=".7"/>
+          <ellipse cx="34" cy="36" rx="10" ry="7" fill="url(#ug-a)" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="label">Users</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-messages" tabindex="0" aria-label="Messages">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mg1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#a8d8a8"/><stop offset="100%" stop-color="#2e8b2e"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="8" width="40" height="28" rx="3" fill="url(#mg1)"/>
+          <polygon points="4,8 24,24 44,8" fill="rgba(255,255,255,0.35)"/>
+          <rect x="28" y="2" width="18" height="18" rx="9" fill="#e84040"/>
+          <text x="37" y="15" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">3</text>
+        </svg>
+      </div>
+      <div class="label">Messages</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-analytics" tabindex="0" aria-label="Analytics">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ag1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffe066"/><stop offset="100%" stop-color="#c88a10"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="40" height="34" rx="3" fill="rgba(255,255,255,0.1)" stroke="#c88a10" stroke-width="1.5"/>
+          <rect x="8" y="28" width="6" height="8" rx="1" fill="url(#ag1)"/>
+          <rect x="17" y="20" width="6" height="16" rx="1" fill="url(#ag1)" opacity=".9"/>
+          <rect x="26" y="14" width="6" height="22" rx="1" fill="url(#ag1)" opacity=".8"/>
+          <rect x="35" y="22" width="6" height="14" rx="1" fill="url(#ag1)" opacity=".7"/>
+          <path d="M8 26 L20 18 L30 12 L38 20" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="label">Analytics</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-files" tabindex="0" aria-label="File Manager">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fm1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffe066"/><stop offset="100%" stop-color="#c88a10"/>
+            </linearGradient>
+          </defs>
+          <path d="M4 12 L4 42 L44 42 L44 16 L22 16 L18 10 L4 10 Z" fill="url(#fm1)"/>
+          <rect x="4" y="18" width="40" height="24" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="8" y="23" width="20" height="1.5" rx="0.75" fill="rgba(255,255,255,0.7)"/>
+          <rect x="8" y="27" width="28" height="1.5" rx="0.75" fill="rgba(255,255,255,0.5)"/>
+          <rect x="8" y="31" width="16" height="1.5" rx="0.75" fill="rgba(255,255,255,0.5)"/>
+        </svg>
+      </div>
+      <div class="label">File Manager</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-settings" tabindex="0" aria-label="Settings">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sg1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#707070"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="9" fill="url(#sg1)"/>
+          <path d="M24 4 L27 10 L33 8 L33 14 L39 14 L37 20 L43 24 L37 28 L39 34 L33 34 L33 40 L27 38 L24 44 L21 38 L15 40 L15 34 L9 34 L11 28 L5 24 L11 20 L9 14 L15 14 L15 8 L21 10 Z" fill="url(#sg1)" opacity=".7"/>
+          <circle cx="24" cy="24" r="6" fill="#e0e0e0"/>
+        </svg>
+      </div>
+      <div class="label">Settings</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-syslog" tabindex="0" aria-label="System Log">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sl1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c8f0c8"/><stop offset="100%" stop-color="#1a7a1a"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="40" height="40" rx="4" fill="#0d1a0d"/>
+          <rect x="8" y="10" width="24" height="2" rx="1" fill="#00ff41" opacity=".9"/>
+          <rect x="8" y="15" width="32" height="1.5" rx="0.75" fill="#00cc33" opacity=".7"/>
+          <rect x="8" y="20" width="20" height="1.5" rx="0.75" fill="#00cc33" opacity=".7"/>
+          <rect x="8" y="25" width="28" height="1.5" rx="0.75" fill="#00cc33" opacity=".5"/>
+          <rect x="8" y="30" width="14" height="1.5" rx="0.75" fill="#ff4040" opacity=".8"/>
+          <rect x="8" y="35" width="26" height="1.5" rx="0.75" fill="#ffaa00" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="label">System Log</div>
+    </div>
+
+  </div><!-- /desktop-icons-area -->
+
+  <!-- ===== DASHBOARD WINDOW ===== -->
+  <div id="win-dashboard" class="os-window draggable resizable" style="left:180px;top:40px;width:600px;height:420px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="7" height="7" rx="1" fill="#4af"/><rect x="9" y="1" width="6" height="3" rx="1" fill="#4af" opacity=".8"/><rect x="9" y="5" width="6" height="3" rx="1" fill="#4af" opacity=".6"/><rect x="1" y="9" width="3" height="6" rx="1" fill="#4af" opacity=".6"/><rect x="5" y="9" width="10" height="6" rx="1" fill="#4af" opacity=".8"/></svg></div>
+      <div class="title-bar-text">Dashboard — Admin Overview</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space admin-scroll">
+      <!-- Stat cards row -->
+      <div class="dash-cards">
+        <div class="dash-card dash-card--blue">
+          <div class="dc-icon">👥</div>
+          <div class="dc-val" id="stat-users">2</div>
+          <div class="dc-label">Total Users</div>
+        </div>
+        <div class="dash-card dash-card--green">
+          <div class="dc-icon">📧</div>
+          <div class="dc-val" id="stat-msgs">3</div>
+          <div class="dc-label">Messages</div>
+        </div>
+        <div class="dash-card dash-card--yellow">
+          <div class="dc-icon">📁</div>
+          <div class="dc-val" id="stat-files">8</div>
+          <div class="dc-label">Files</div>
+        </div>
+        <div class="dash-card dash-card--red">
+          <div class="dc-icon">⚠️</div>
+          <div class="dc-val" id="stat-logs">1</div>
+          <div class="dc-label">Alerts</div>
+        </div>
+      </div>
+      <!-- Mini chart -->
+      <div class="dash-section-title">Visitor Activity (Last 7 Days)</div>
+      <div class="dash-chart-wrap">
+        <canvas id="admin-chart" width="540" height="120"></canvas>
+      </div>
+      <!-- Recent activity -->
+      <div class="dash-section-title">Recent Activity</div>
+      <table class="admin-table">
+        <thead><tr><th>Time</th><th>Event</th><th>User</th><th>Status</th></tr></thead>
+        <tbody id="activity-log">
+          <tr><td>12:04</td><td>Login</td><td>Aman</td><td><span class="badge badge--green">Success</span></td></tr>
+          <tr><td>11:58</td><td>File Upload</td><td>Aman</td><td><span class="badge badge--green">OK</span></td></tr>
+          <tr><td>11:42</td><td>Settings Changed</td><td>Aman</td><td><span class="badge badge--yellow">Info</span></td></tr>
+          <tr><td>10:30</td><td>Failed Login</td><td>Guest</td><td><span class="badge badge--red">Failed</span></td></tr>
+          <tr><td>09:15</td><td>New Message</td><td>—</td><td><span class="badge badge--blue">New</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== USERS WINDOW ===== -->
+  <div id="win-users" class="os-window draggable resizable closed" style="left:140px;top:60px;width:560px;height:400px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5" r="3.5" fill="#a8d8f8"/><ellipse cx="6" cy="12" rx="5" ry="3" fill="#4a9ad4"/><circle cx="12" cy="6" r="2.5" fill="#a8d8f8" opacity=".7"/><ellipse cx="12" cy="12" rx="3.5" ry="2" fill="#4a9ad4" opacity=".5"/></svg></div>
+      <div class="title-bar-text">User Management</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space admin-scroll">
+      <div class="admin-toolbar">
+        <button class="admin-btn admin-btn--primary" onclick="openAddUserDialog()">+ Add User</button>
+        <input type="text" class="admin-search" placeholder="Search users…" oninput="filterUsers(this.value)" />
+      </div>
+      <table class="admin-table" id="users-table">
+        <thead><tr><th>Avatar</th><th>Name</th><th>Role</th><th>Status</th><th>Last Login</th><th>Actions</th></tr></thead>
+        <tbody id="users-tbody"></tbody>
+      </table>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== MESSAGES WINDOW ===== -->
+  <div id="win-messages" class="os-window draggable resizable closed" style="left:200px;top:55px;width:580px;height:420px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" fill="#5abe5a"/><polygon points="1,3 8,9 15,3" fill="rgba(255,255,255,0.4)"/></svg></div>
+      <div class="title-bar-text">Messages / Contact Submissions</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="padding:0;display:flex;height:calc(100% - 30px);overflow:hidden;">
+      <!-- Message list -->
+      <div class="msg-list" id="msg-list"></div>
+      <!-- Message detail -->
+      <div class="msg-detail" id="msg-detail">
+        <div class="msg-detail-empty">Select a message to read</div>
+      </div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== ANALYTICS WINDOW ===== -->
+  <div id="win-analytics" class="os-window draggable resizable closed" style="left:160px;top:50px;width:600px;height:430px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="8" width="3" height="6" rx="0.5" fill="#ffe066"/><rect x="6" y="5" width="3" height="9" rx="0.5" fill="#ffe066" opacity=".9"/><rect x="10" y="2" width="3" height="12" rx="0.5" fill="#ffe066" opacity=".8"/></svg></div>
+      <div class="title-bar-text">Analytics</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space admin-scroll">
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <div class="analytics-card-title">Page Views</div>
+          <div class="analytics-big-num">4,821</div>
+          <div class="analytics-trend analytics-trend--up">↑ 12% this week</div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-card-title">Unique Visitors</div>
+          <div class="analytics-big-num">1,204</div>
+          <div class="analytics-trend analytics-trend--up">↑ 8% this week</div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-card-title">Bounce Rate</div>
+          <div class="analytics-big-num">38%</div>
+          <div class="analytics-trend analytics-trend--down">↓ 3% this week</div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-card-title">Avg. Session</div>
+          <div class="analytics-big-num">2m 14s</div>
+          <div class="analytics-trend analytics-trend--up">↑ 5s this week</div>
+        </div>
+      </div>
+      <div class="dash-section-title" style="margin-top:16px;">Traffic Sources</div>
+      <div class="analytics-bar-list" id="traffic-bars"></div>
+      <div class="dash-section-title" style="margin-top:16px;">Top Pages</div>
+      <table class="admin-table">
+        <thead><tr><th>Page</th><th>Views</th><th>Avg Time</th></tr></thead>
+        <tbody>
+          <tr><td>/about</td><td>1,842</td><td>1m 55s</td></tr>
+          <tr><td>/portfolio</td><td>1,107</td><td>2m 40s</td></tr>
+          <tr><td>/blog</td><td>873</td><td>3m 12s</td></tr>
+          <tr><td>/contact</td><td>612</td><td>1m 20s</td></tr>
+          <tr><td>/services</td><td>387</td><td>1m 44s</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== FILE MANAGER WINDOW ===== -->
+  <div id="win-files" class="os-window draggable resizable closed" style="left:170px;top:55px;width:560px;height:400px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M1 4 L1 14 L15 14 L15 6 L7 6 L5 3 Z" fill="#ffe066"/></svg></div>
+      <div class="title-bar-text">File Manager</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="padding:0;display:flex;flex-direction:column;height:calc(100% - 30px);overflow:hidden;">
+      <!-- Toolbar -->
+      <div class="fm-toolbar">
+        <button class="admin-btn" onclick="fmGoUp()">⬆ Up</button>
+        <div class="fm-path" id="fm-path">/ root</div>
+        <button class="admin-btn admin-btn--primary" onclick="fmNewFolder()">+ New Folder</button>
+        <button class="admin-btn" onclick="fmUpload()">⬆ Upload</button>
+      </div>
+      <!-- File grid -->
+      <div class="fm-body" id="fm-body"></div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== SETTINGS WINDOW ===== -->
+  <div id="win-settings" class="os-window draggable resizable closed" style="left:150px;top:50px;width:520px;height:430px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" fill="#ccc"/><path d="M8 1 L9 3 L11 2 L11 5 L13 5 L12 7 L14 8 L12 9 L13 11 L11 11 L11 14 L9 13 L8 15 L7 13 L5 14 L5 11 L3 11 L4 9 L2 8 L4 7 L3 5 L5 5 L5 2 L7 3 Z" fill="#aaa" opacity=".7"/></svg></div>
+      <div class="title-bar-text">Site Settings</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space admin-scroll">
+      <menu role="tablist" style="margin-bottom:12px;">
+        <button role="tab" aria-selected="true" aria-controls="stab-general">General</button>
+        <button role="tab" aria-selected="false" aria-controls="stab-appearance">Appearance</button>
+        <button role="tab" aria-selected="false" aria-controls="stab-security">Security</button>
+      </menu>
+      <!-- General tab -->
+      <div role="tabpanel" id="stab-general">
+        <div class="settings-group">
+          <label>Site Title</label>
+          <input type="text" value="AmanOS" id="set-title" />
+        </div>
+        <div class="settings-group">
+          <label>Admin Email</label>
+          <input type="email" value="aman@example.com" id="set-email" />
+        </div>
+        <div class="settings-group">
+          <label>Tagline</label>
+          <input type="text" value="Windows 7 Style Web OS" id="set-tagline" />
+        </div>
+        <div class="settings-group">
+          <label>Maintenance Mode</label>
+          <label class="toggle-switch"><input type="checkbox" id="set-maintenance" /><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+        </div>
+        <button class="admin-btn admin-btn--primary" onclick="saveSettings()">Save Changes</button>
+      </div>
+      <!-- Appearance tab -->
+      <div role="tabpanel" id="stab-appearance" hidden>
+        <div class="settings-group">
+          <label>Default Wallpaper</label>
+          <select id="set-wallpaper">
+            <option value="wp-aurora">Aurora (Default)</option>
+            <option value="wp-bliss">Bliss</option>
+            <option value="wp-dusk">Dusk</option>
+            <option value="wp-night">Night Sky</option>
+            <option value="wp-forest">Forest</option>
+            <option value="wp-energy">Energy</option>
+          </select>
+        </div>
+        <div class="settings-group">
+          <label>Admin Accent Color</label>
+          <input type="color" id="set-accent" value="#1a62a8" style="width:48px;height:28px;border:none;cursor:pointer;" />
+        </div>
+        <div class="settings-group">
+          <label>Show Desktop Icons</label>
+          <label class="toggle-switch"><input type="checkbox" id="set-icons" checked /><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+        </div>
+        <button class="admin-btn admin-btn--primary" onclick="saveSettings()">Save Changes</button>
+      </div>
+      <!-- Security tab -->
+      <div role="tabpanel" id="stab-security" hidden>
+        <div class="settings-group">
+          <label>Change Password</label>
+          <input type="password" id="set-pw-old" placeholder="Current password" />
+        </div>
+        <div class="settings-group">
+          <label>New Password</label>
+          <input type="password" id="set-pw-new" placeholder="New password" />
+        </div>
+        <div class="settings-group">
+          <label>Confirm New Password</label>
+          <input type="password" id="set-pw-confirm" placeholder="Confirm new password" />
+        </div>
+        <div id="set-pw-msg" style="font-size:11px;margin-bottom:8px;"></div>
+        <button class="admin-btn admin-btn--primary" onclick="changePassword()">Update Password</button>
+        <hr style="margin:16px 0;border-color:rgba(0,0,0,0.1);" />
+        <div class="settings-group">
+          <label>Two-Factor Auth</label>
+          <label class="toggle-switch"><input type="checkbox" id="set-2fa" /><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+        </div>
+        <div class="settings-group">
+          <label>Session Timeout (min)</label>
+          <input type="number" value="30" min="5" max="240" id="set-timeout" style="width:80px;" />
+        </div>
+        <button class="admin-btn" onclick="saveSettings()">Save Security Settings</button>
+      </div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== SYSTEM LOG WINDOW ===== -->
+  <div id="win-syslog" class="os-window draggable resizable closed" style="left:190px;top:60px;width:580px;height:400px;">
+    <div class="title-bar">
+      <div class="title-bar-icon"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#0d1a0d"/><rect x="3" y="4" width="8" height="1.2" rx="0.6" fill="#00ff41"/><rect x="3" y="7" width="10" height="1" rx="0.5" fill="#00cc33" opacity=".7"/><rect x="3" y="10" width="5" height="1" rx="0.5" fill="#ff4040" opacity=".8"/></svg></div>
+      <div class="title-bar-text">System Log</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="padding:0;display:flex;flex-direction:column;height:calc(100% - 30px);overflow:hidden;">
+      <div class="syslog-toolbar">
+        <select id="log-filter" onchange="renderLogs()">
+          <option value="all">All Levels</option>
+          <option value="info">Info</option>
+          <option value="warn">Warning</option>
+          <option value="error">Error</option>
+        </select>
+        <button class="admin-btn" onclick="clearLogs()">Clear</button>
+        <button class="admin-btn" onclick="exportLogs()">Export</button>
+      </div>
+      <div class="syslog-body" id="syslog-body"></div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- ===== ADD USER DIALOG ===== -->
+  <div id="dlg-add-user" class="os-window" role="dialog" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:340px;z-index:9999;">
+    <div class="title-bar active">
+      <div class="title-bar-text">Add New User</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="document.getElementById('dlg-add-user').style.display='none'"></button>
+      </div>
+    </div>
+    <div class="window-body has-space">
+      <div class="settings-group"><label>Username</label><input type="text" id="nu-name" placeholder="e.g. john_doe" /></div>
+      <div class="settings-group"><label>Role</label>
+        <select id="nu-role"><option value="viewer">Viewer</option><option value="editor">Editor</option><option value="admin">Admin</option></select>
+      </div>
+      <div class="settings-group"><label>Password</label><input type="password" id="nu-pw" placeholder="Set password" /></div>
+      <div id="nu-err" style="font-size:11px;color:#c00;margin-bottom:6px;"></div>
+      <section style="display:flex;gap:6px;justify-content:flex-end;">
+        <button class="default" onclick="addUser()">Add User</button>
+        <button onclick="document.getElementById('dlg-add-user').style.display='none'">Cancel</button>
+      </section>
+    </div>
+  </div>
+
+  <!-- ===== SHUTDOWN DIALOG ===== -->
+  <div id="shutdown-dialog" class="os-window" role="dialog" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;z-index:9999;">
+    <div class="title-bar active">
+      <div class="title-bar-text">Shut Down AmanOS</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="document.getElementById('shutdown-dialog').style.display='none'"></button>
+      </div>
+    </div>
+    <div class="window-body has-space" style="text-align:center;">
+      <p>Are you sure you want to shut down AmanOS?</p>
+      <section style="display:flex;gap:6px;justify-content:center;margin-top:8px;">
+        <button class="default" onclick="doShutdown()">Shut Down</button>
+        <button onclick="document.getElementById('shutdown-dialog').style.display='none'">Cancel</button>
+      </section>
+    </div>
+  </div>
+  <div id="shutdown-screen" style="display:none;position:fixed;inset:0;background:#000;z-index:99999;display:none;align-items:center;justify-content:center;flex-direction:column;">
+    <div style="color:#fff;font-size:18pt;font-family:'Segoe UI',sans-serif;margin-bottom:16px;">Shutting down...</div>
+  </div>
+
+</div><!-- /admin-desktop -->
+
+<!-- ===== TASKBAR ===== -->
+<div id="taskbar" class="taskbar">
+  <button id="start-btn" class="start-button" onclick="toggleStartMenu()" title="Start">
+    <span class="start-orb"></span>
+    <span class="start-label">Start</span>
+  </button>
+
+  <!-- Quick Launch -->
+  <div class="quick-launch" id="quick-launch">
+    <button class="ql-btn" title="Dashboard" onclick="launchApp('win-dashboard')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="8" height="8" rx="1" fill="#4af"/><rect x="11" y="1" width="8" height="4" rx="1" fill="#4af" opacity=".8"/><rect x="11" y="7" width="8" height="4" rx="1" fill="#4af" opacity=".6"/><rect x="1" y="11" width="4" height="8" rx="1" fill="#4af" opacity=".6"/><rect x="7" y="11" width="12" height="8" rx="1" fill="#4af" opacity=".8"/></svg>
+    </button>
+    <button class="ql-btn" title="Users" onclick="launchApp('win-users')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="6" r="4" fill="#a8d8f8"/><ellipse cx="7" cy="15" rx="6" ry="4" fill="#4a9ad4"/><circle cx="15" cy="7" r="3" fill="#a8d8f8" opacity=".7"/><ellipse cx="15" cy="15" rx="4" ry="3" fill="#4a9ad4" opacity=".5"/></svg>
+    </button>
+    <button class="ql-btn" title="Messages" onclick="launchApp('win-messages')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="18" height="13" rx="1.5" fill="#5abe5a"/><polygon points="1,3 10,11 19,3" fill="rgba(255,255,255,0.35)"/></svg>
+    </button>
+    <button class="ql-btn" title="Analytics" onclick="launchApp('win-analytics')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="3" height="8" rx="0.5" fill="#ffe066"/><rect x="7" y="6" width="3" height="12" rx="0.5" fill="#ffe066" opacity=".9"/><rect x="12" y="2" width="3" height="16" rx="0.5" fill="#ffe066" opacity=".8"/></svg>
+    </button>
+    <button class="ql-btn" title="File Manager" onclick="launchApp('win-files')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M1 5 L1 17 L19 17 L19 7 L9 7 L7 4 Z" fill="#ffe066"/></svg>
+    </button>
+    <button class="ql-btn" title="Settings" onclick="launchApp('win-settings')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="3.5" fill="#ccc"/><path d="M10 2 L11.5 5 L14.5 3.5 L14.5 6.5 L17.5 6.5 L16 9.5 L19 10 L16 11 L17.5 13.5 L14.5 13.5 L14.5 16.5 L11.5 15 L10 18 L8.5 15 L5.5 16.5 L5.5 13.5 L2.5 13.5 L4 11 L1 10 L4 9.5 L2.5 6.5 L5.5 6.5 L5.5 3.5 L8.5 5 Z" fill="#aaa" opacity=".6"/></svg>
+    </button>
+    <button class="ql-btn" title="System Log" onclick="launchApp('win-syslog')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="18" height="18" rx="2" fill="#0d1a0d"/><rect x="3" y="5" width="10" height="1.5" rx="0.75" fill="#00ff41"/><rect x="3" y="9" width="13" height="1" rx="0.5" fill="#00cc33" opacity=".7"/><rect x="3" y="13" width="7" height="1" rx="0.5" fill="#ff4040" opacity=".8"/></svg>
+    </button>
+    <div class="ql-sep"></div>
+  </div>
+
+  <div id="taskbar-buttons" class="taskbar-buttons"></div>
+
+  <!-- System Tray -->
+  <div class="system-tray">
+    <div class="tray-icons">
+      <span class="admin-tray-badge" title="Admin Mode">🛡️</span>
+      <svg title="Network Connected" viewBox="0 0 16 16" style="width:16px;height:16px;" xmlns="http://www.w3.org/2000/svg"><path d="M2 10 Q8 4 14 10" stroke="#8cf" stroke-width="1.5" fill="none"/><path d="M4 12 Q8 7 12 12" stroke="#8cf" stroke-width="1.5" fill="none"/><circle cx="8" cy="14" r="1.5" fill="#8cf"/></svg>
+      <svg title="Sound" viewBox="0 0 16 16" style="width:16px;height:16px;" xmlns="http://www.w3.org/2000/svg"><polygon points="3,5 7,5 10,2 10,14 7,11 3,11" fill="#8cf"/><path d="M12 5 Q14 8 12 11" stroke="#8cf" stroke-width="1.2" fill="none"/></svg>
+    </div>
+    <div class="tray-clock">
+      <div id="tray-time" class="tray-time">12:00</div>
+      <div id="tray-date" class="tray-date">Mon 1/1</div>
+    </div>
+    <button class="show-desktop-btn" id="show-desktop-btn" title="Show Desktop"></button>
+  </div>
+</div>
+
+<!-- Start Menu -->
+<div id="start-menu" class="start-menu" aria-hidden="true">
+  <div class="start-menu-top">
+    <div class="start-user-avatar">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sm-av" cx="40%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#fde8c8"/><stop offset="100%" stop-color="#d4956a"/>
+          </radialGradient>
+        </defs>
+        <circle cx="16" cy="13" r="7" fill="url(#sm-av)"/>
+        <ellipse cx="16" cy="26" rx="11" ry="6" fill="#1565c0"/>
+      </svg>
+    </div>
+    <div class="start-user-name">Aman <span style="font-size:10px;opacity:0.6;">Administrator</span></div>
+  </div>
+  <ul class="start-menu-list">
+    <li onclick="launchApp('win-dashboard')">📊 Dashboard</li>
+    <li onclick="launchApp('win-users')">👥 User Management</li>
+    <li onclick="launchApp('win-messages')">📧 Messages</li>
+    <li onclick="launchApp('win-analytics')">📈 Analytics</li>
+    <li onclick="launchApp('win-files')">📁 File Manager</li>
+    <li onclick="launchApp('win-settings')">⚙️ Site Settings</li>
+    <li onclick="launchApp('win-syslog')">🖥️ System Log</li>
+    <li class="start-divider"></li>
+    <li onclick="window.location.href='index.html'">🔒 Lock / Log Out</li>
+    <li onclick="confirmShutdown()">⏻ Shut Down</li>
+  </ul>
+</div>
+
+<!-- Desktop right-click context menu -->
+<div id="ctx-menu" class="ctx-menu">
+  <div class="ctx-item" onclick="launchApp('win-dashboard')">📊 Dashboard</div>
+  <div class="ctx-item" onclick="launchApp('win-settings')">⚙️ Settings</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="window.location.href='index.html'">🔒 Log Out</div>
+</div>
+
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
