@@ -1,373 +1,569 @@
 <!doctype html>
 <html lang="en" translate="no">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AMAN OS</title>
-
-  <!-- 7.css -->
+  <title>AmanOS</title>
   <link rel="stylesheet" href="assets/css/os.css" />
-
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-    }
-
-    body {
-      height: 100vh;
-      overflow: hidden;
-      background: url("bg.jpg") center center / cover no-repeat fixed;
-    }
-
-    /* Desktop layer */
-    .desktop {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    /* Our window: absolute so we can move it */
-    .window.draggable {
-      position: absolute;
-      left: 80px;
-      top: 80px;
-      width: 400px;
-      /* you had max-width:400px; width feels more "window-like" */
-      max-width: 90vw;
-      user-select: none;
-      /* avoid selecting while dragging */
-      touch-action: none;
-      /* makes pointer dragging smoother on touch devices */
-    }
-
-    /* Allow selecting inside content */
-    .window .window-body {
-      user-select: text;
-      touch-action: auto;
-    }
-
-    .window .title-bar {
-      cursor: grab;
-    }
-
-    .window.dragging .title-bar {
-      cursor: grabbing;
-    }
-
-    /* Minimized state: show only title bar */
-    .window.minimized .window-body {
-      display: none;
-    }
-
-    /* Simple hidden/closed state */
-    .window.closed {
-      display: none !important;
-    }
-
-    /* When maximized, we fill the desktop */
-    .window.maximized {
-      left: 0 !important;
-      top: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      max-width: 100vw !important;
-    }
-
-    /* Make the window lay out title bar + body vertically */
-    .window.draggable {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Let the body take all remaining space and be the scrolling area */
-    .window.draggable .window-body {
-      flex: 1 1 auto;
-      min-height: 0;
-      /* IMPORTANT: allows inner overflow to work in flex */
-      overflow: auto;
-    }
-
-    /* Title bar should not flex */
-    .window.draggable .title-bar {
-      flex: 0 0 auto;
-    }
-
-    /*** VIDEO WRAP ***/
-
-    .video-wrap {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      /* keep ratio while resizing */
-      position: relative;
-      overflow: hidden;
-    }
-
-    .video-wrap>iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-
-    /*** RESIZE ***/
-
-    /* Allow resizing to have room + prevent selection while resizing */
-    .window.resizable {
-      min-width: 260px;
-      min-height: 140px;
-      max-width: 100vw;
-      max-height: 100vh;
-    }
-
-    /* Don’t show resize handles when maximized */
-    .window.maximized .resize-handle {
-      display: none;
-    }
-
-    /* Invisible handles */
-    .resize-handle {
-      position: absolute;
-      z-index: 10;
-      background: transparent;
-    }
-
-    /* Edges */
-    .resize-handle.n {
-      top: -4px;
-      left: 8px;
-      right: 8px;
-      height: 8px;
-      cursor: ns-resize;
-    }
-
-    .resize-handle.s {
-      bottom: -4px;
-      left: 8px;
-      right: 8px;
-      height: 8px;
-      cursor: ns-resize;
-    }
-
-    .resize-handle.e {
-      right: -4px;
-      top: 8px;
-      bottom: 8px;
-      width: 8px;
-      cursor: ew-resize;
-    }
-
-    .resize-handle.w {
-      left: -4px;
-      top: 8px;
-      bottom: 8px;
-      width: 8px;
-      cursor: ew-resize;
-    }
-
-    /* Corners */
-    .resize-handle.nw {
-      left: -4px;
-      top: -4px;
-      width: 12px;
-      height: 12px;
-      cursor: nwse-resize;
-    }
-
-    .resize-handle.ne {
-      right: -4px;
-      top: -4px;
-      width: 12px;
-      height: 12px;
-      cursor: nesw-resize;
-    }
-
-    .resize-handle.sw {
-      left: -4px;
-      bottom: -4px;
-      width: 12px;
-      height: 12px;
-      cursor: nesw-resize;
-    }
-
-    .resize-handle.se {
-      right: -4px;
-      bottom: -4px;
-      width: 12px;
-      height: 12px;
-      cursor: nwse-resize;
-    }
-
-    .window.resizable .window-body {
-      overflow: auto;
-    }
-
-
-    /* --- Desktop icon --- */
-    .desktop-icon {
-      position: absolute;
-      left: 24px;
-      top: 24px;
-
-      width: 92px;
-      padding: 8px 6px;
-      border-radius: 4px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
-      cursor: default;
-      user-select: none;
-      outline: none;
-    }
-
-    /* icon image */
-    .desktop-icon img {
-      width: 48px;
-      height: 48px;
-      image-rendering: auto;
-      pointer-events: none;
-    }
-
-    /* label */
-    .desktop-icon .label {
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      line-height: 1.1;
-      text-align: center;
-      padding: 2px 4px;
-      border-radius: 2px;
-      pointer-events: none;
-    }
-
-    /* Windows-ish selection */
-    .desktop-icon.selected {
-      background: rgba(0, 120, 215, 0.35);
-      outline: 1px solid rgba(160, 210, 255, 0.8);
-    }
-
-    /* selected label background like Windows */
-    .desktop-icon.selected .label {
-      background: rgba(0, 120, 215, 0.55);
-    }
-
-    /* keyboard focus ring */
-    .desktop-icon:focus-visible {
-      outline: 1px dotted rgba(255, 255, 255, 0.9);
-      outline-offset: 2px;
-    }
-
-    .window .title-bar {
-      position: relative;
-      z-index: 20;
-    }
-
-    .window .title-bar-controls {
-      position: relative;
-      z-index: 30;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/desktop.css" />
 </head>
-
 <body>
-  <div class="desktop">
 
-    <div id="appIcon" class="desktop-icon" tabindex="0" aria-label="Example App">
-      <img src="icon.png" alt="" />
-      <div class="label">Example App</div>
+<!-- ===== DESKTOP ===== -->
+<div id="desktop" class="desktop">
+
+  <!-- Desktop Icons (left column) -->
+  <div class="desktop-icons-area">
+
+    <div class="desktop-icon" data-window="win-about" tabindex="0" aria-label="About Us">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="14" r="8" fill="#4fc3f7"/>
+          <path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#0288d1"/>
+        </svg>
+      </div>
+      <div class="label">About Us</div>
     </div>
 
-    <div id="appWindow" class="window active draggable resizable" style="width: 400px;">
-      <div class="title-bar">
-        <div class="title-bar-text">Example App</div>
-        <div class="title-bar-controls">
-          <button id="btnMin" aria-label="Minimize" title="Minimize"></button>
-          <button id="btnMax" aria-label="Maximize" title="Maximize"></button>
-          <button id="btnClose" aria-label="Close" title="Close"></button>
+    <div class="desktop-icon" data-window="win-services" tabindex="0" aria-label="Services">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="36" height="28" rx="3" fill="#42a5f5"/>
+          <rect x="18" y="34" width="12" height="4" fill="#1565c0"/>
+          <rect x="12" y="38" width="24" height="3" rx="1" fill="#1565c0"/>
+          <rect x="10" y="10" width="28" height="20" rx="1" fill="#e3f2fd"/>
+        </svg>
+      </div>
+      <div class="label">Services</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-portfolio" tabindex="0" aria-label="Portfolio">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="12" width="36" height="28" rx="3" fill="#ffa726"/>
+          <rect x="16" y="8" width="16" height="8" rx="2" fill="#e65100"/>
+          <rect x="10" y="18" width="28" height="2" fill="#fff3e0"/>
+          <rect x="10" y="24" width="20" height="2" fill="#fff3e0"/>
+          <rect x="10" y="30" width="24" height="2" fill="#fff3e0"/>
+        </svg>
+      </div>
+      <div class="label">Portfolio</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-contact" tabindex="0" aria-label="Contact Us">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="10" width="36" height="28" rx="3" fill="#66bb6a"/>
+          <path d="M6 14l18 12 18-12" stroke="#fff" stroke-width="2"/>
+          <rect x="10" y="14" width="28" height="20" rx="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="label">Contact Us</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-blog" tabindex="0" aria-label="Blog">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="6" width="32" height="40" rx="3" fill="#ab47bc"/>
+          <rect x="12" y="14" width="24" height="2" fill="#fff"/>
+          <rect x="12" y="20" width="20" height="2" fill="#ffe0fb"/>
+          <rect x="12" y="26" width="22" height="2" fill="#ffe0fb"/>
+          <rect x="12" y="32" width="16" height="2" fill="#ffe0fb"/>
+          <circle cx="14" cy="10" r="2" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="label">Blog</div>
+    </div>
+
+    <div class="desktop-icon" data-window="win-mycomputer" tabindex="0" aria-label="My Computer">
+      <div class="di-img">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="40" height="26" rx="3" fill="#607d8b"/>
+          <rect x="7" y="11" width="34" height="20" fill="#e3f2fd"/>
+          <rect x="18" y="34" width="12" height="4" fill="#455a64"/>
+          <rect x="12" y="38" width="24" height="2" rx="1" fill="#455a64"/>
+          <circle cx="24" cy="21" r="6" fill="#42a5f5"/>
+          <circle cx="24" cy="21" r="3" fill="#0d47a1"/>
+        </svg>
+      </div>
+      <div class="label">My Computer</div>
+    </div>
+
+  </div><!-- /desktop-icons-area -->
+
+  <!-- ===========================
+       APP WINDOWS
+  ============================ -->
+
+  <!-- About Us Window -->
+  <div id="win-about" class="os-window active draggable resizable" style="left:80px;top:60px;width:520px;height:400px;">
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" fill="#fff"/><path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" fill="#fff"/></svg>
+      </div>
+      <div class="title-bar-text">About Us</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space" style="overflow:auto;">
+      <div class="about-hero">
+        <div class="about-avatar">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="18" fill="#4fc3f7"/><path d="M8 80c0-17.673 14.327-32 32-32s32 14.327 32 32" fill="#0288d1"/></svg>
+        </div>
+        <div>
+          <h2 class="header-group" style="margin:0 0 4px;">Hi, I'm Aman 👋</h2>
+          <p class="instruction" style="margin:0;">Full-stack Developer &amp; Creative Designer</p>
         </div>
       </div>
-
-      <div class="window-body has-space">
-        <menu role="tablist" aria-label="Window with Tabs">
-          <button role="tab" aria-controls="music" aria-selected="true">Music</button>
-          <button role="tab" aria-controls="dogs">Dogs</button>
-          <button role="tab" aria-controls="food">Food</button>
-        </menu>
-
-        <article role="tabpanel" id="music">
-          <p>Source code can be found at:<br>
-            <a href="https://amanprojects.com">Aman Projects</a>
-          </p>
-          <p>Set your listening preferences</p>
-          <fieldset>
-            <legend>Today's mood</legend>
-            <div>
-              <input id="radio33" type="radio" name="fieldset-example2">
-              <label for="radio33">Nicki Minaj</label>
-            </div>
-            <div>
-              <input id="radio34" type="radio" name="fieldset-example2">
-              <label for="radio34">Bell Towers</label>
-            </div>
-            <div>
-              <input id="radio35" type="radio" name="fieldset-example2">
-              <label for="radio35">The Glamorous Monique</label>
-            </div>
-            <div>
-              <input id="radio36" type="radio" name="fieldset-example2">
-              <label for="radio36">EN. V</label>
-            </div>
-          </fieldset>
-          <section style="display: flex; gap: 6px; align-items: center">
-            <button>Reset Alarm...</button>
-            <label>Try this to get some attention</label>
-          </section>
-        </article>
-
-        <article role="tabpanel" hidden id="dogs" style="overflow: hidden">
-          <img src="#" alt="no image" style="width: 100%; max-width: 640px" />
-        </article>
-
-        <article role="tabpanel" hidden id="food">
-          <p>
-            You create the content for each tab by using an <code>article</code> tag.
-          </p>
-
-          <div class="video-wrap">
-            <iframe src="" title="YouTube video player"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-            </iframe>
-          </div>
-        </article>
-
-        <section style="display: flex; justify-content: flex-end; gap: 6px">
-          <button class="default">OK</button>
-          <button>Cancel</button>
-        </section>
-      </div>
-
-      <!-- resize handles -->
-      <div class="resize-handle n" data-dir="n"></div>
-      <div class="resize-handle s" data-dir="s"></div>
-      <div class="resize-handle e" data-dir="e"></div>
-      <div class="resize-handle w" data-dir="w"></div>
-      <div class="resize-handle nw" data-dir="nw"></div>
-      <div class="resize-handle ne" data-dir="ne"></div>
-      <div class="resize-handle sw" data-dir="sw"></div>
-      <div class="resize-handle se" data-dir="se"></div>
+      <fieldset>
+        <legend>Who We Are</legend>
+        <p style="margin:4px 0;">We are a passionate team of developers and designers building modern web experiences. Our mission is to deliver clean, fast, and beautiful digital products that make a real impact.</p>
+      </fieldset>
+      <fieldset>
+        <legend>Our Stack</legend>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">UI/UX Design</span>
+        </div>
+      </fieldset>
+      <section style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px;">
+        <button class="default" onclick="openWindow('win-contact')">Contact Me</button>
+        <button onclick="openWindow('win-portfolio')">See Portfolio</button>
+      </section>
     </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
   </div>
 
- <script src="assets/js/ui.js"></script>
+  <!-- Services Window -->
+  <div id="win-services" class="os-window draggable resizable" style="left:160px;top:100px;width:540px;height:420px;">
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="9" rx="1" fill="#fff"/><rect x="6" y="11" width="4" height="2" fill="#cce"/><rect x="4" y="13" width="8" height="1" rx="0.5" fill="#cce"/></svg>
+      </div>
+      <div class="title-bar-text">Our Services</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space" style="overflow:auto;">
+      <p class="instruction"><span class="instruction-primary">What We Offer</span><br>Premium digital services crafted with care.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <strong>Web Development</strong>
+          <p>Custom websites built with modern frameworks. Fast, responsive, and SEO-ready.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📱</div>
+          <strong>Mobile Apps</strong>
+          <p>Cross-platform mobile applications with React Native and Flutter.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <strong>UI/UX Design</strong>
+          <p>Beautiful interfaces designed with user experience as the top priority.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔒</div>
+          <strong>Security Audits</strong>
+          <p>Comprehensive security reviews to keep your applications safe.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">☁️</div>
+          <strong>Cloud Hosting</strong>
+          <p>Managed cloud infrastructure on AWS, Azure, and Google Cloud.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <strong>SEO &amp; Analytics</strong>
+          <p>Data-driven growth strategies to maximize your online presence.</p>
+        </div>
+      </div>
+      <section style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px;">
+        <button class="default" onclick="openWindow('win-contact')">Get a Quote</button>
+      </section>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
 
+  <!-- Portfolio Window -->
+  <div id="win-portfolio" class="os-window draggable resizable" style="left:200px;top:80px;width:580px;height:450px;">
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1" fill="#fff"/><rect x="5" y="2" width="6" height="3" rx="1" fill="#ffd"/></svg>
+      </div>
+      <div class="title-bar-text">Portfolio</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space" style="overflow:auto;">
+      <menu role="tablist" aria-label="Portfolio Categories">
+        <button role="tab" aria-controls="ptab-web" aria-selected="true">Web</button>
+        <button role="tab" aria-controls="ptab-apps">Apps</button>
+        <button role="tab" aria-controls="ptab-design">Design</button>
+      </menu>
+      <article role="tabpanel" id="ptab-web">
+        <div class="portfolio-grid">
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+              <span>E-Commerce</span>
+            </div>
+            <p><strong>ShopEasy</strong><br><small>React + Node.js + MongoDB</small></p>
+          </div>
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+              <span>SaaS Dashboard</span>
+            </div>
+            <p><strong>DataViz Pro</strong><br><small>Vue.js + D3.js</small></p>
+          </div>
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe);">
+              <span>Corporate</span>
+            </div>
+            <p><strong>TechCorp Website</strong><br><small>Next.js + Tailwind</small></p>
+          </div>
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">
+              <span>Blog Platform</span>
+            </div>
+            <p><strong>WriteIt</strong><br><small>WordPress + Custom Theme</small></p>
+          </div>
+        </div>
+      </article>
+      <article role="tabpanel" id="ptab-apps" hidden>
+        <div class="portfolio-grid">
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#fa709a,#fee140);">
+              <span>Fitness App</span>
+            </div>
+            <p><strong>FitTrack</strong><br><small>React Native + Firebase</small></p>
+          </div>
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">
+              <span>Task Manager</span>
+            </div>
+            <p><strong>DoFlow</strong><br><small>Flutter + Dart</small></p>
+          </div>
+        </div>
+      </article>
+      <article role="tabpanel" id="ptab-design" hidden>
+        <div class="portfolio-grid">
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#ffecd2,#fcb69f);">
+              <span>Brand Identity</span>
+            </div>
+            <p><strong>Brew Co. Branding</strong><br><small>Figma + Illustrator</small></p>
+          </div>
+          <div class="portfolio-card">
+            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#a1c4fd,#c2e9fb);">
+              <span>UI Kit</span>
+            </div>
+            <p><strong>AeroUI Design System</strong><br><small>Figma Components</small></p>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- Contact Us Window -->
+  <div id="win-contact" class="os-window draggable resizable" style="left:240px;top:90px;width:440px;height:460px;">
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1" fill="#fff"/><path d="M1 5l7 5 7-5" stroke="#6bf" stroke-width="1.5"/></svg>
+      </div>
+      <div class="title-bar-text">Contact Us</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space" style="overflow:auto;">
+      <p class="instruction"><span class="instruction-primary">Get in Touch</span><br>We'd love to hear from you. Send us a message!</p>
+      <form id="contactForm" onsubmit="handleContact(event)">
+        <div class="form-row">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" placeholder="John Doe" required />
+        </div>
+        <div class="form-row">
+          <label for="cf-email">Email Address</label>
+          <input type="email" id="cf-email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-row">
+          <label for="cf-subject">Subject</label>
+          <input type="text" id="cf-subject" placeholder="Project Inquiry" />
+        </div>
+        <div class="form-row">
+          <label for="cf-msg">Message</label>
+          <textarea id="cf-msg" rows="5" placeholder="Tell us about your project..." required style="width:100%;box-sizing:border-box;resize:vertical;"></textarea>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:aman@example.com">📧 aman@example.com</a>
+          <a href="tel:+91000000000">📞 +91 00000 00000</a>
+        </div>
+        <section style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px;">
+          <button type="submit" class="default">Send Message</button>
+          <button type="reset">Clear</button>
+        </section>
+      </form>
+      <div id="contact-success" style="display:none;" class="contact-success-msg">
+        ✅ Message sent! We'll get back to you soon.
+      </div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- Blog Window -->
+  <div id="win-blog" class="os-window draggable resizable" style="left:280px;top:80px;width:520px;height:430px;">
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1" fill="#fff"/><rect x="4" y="5" width="8" height="1.2" fill="#aaf"/><rect x="4" y="8" width="6" height="1.2" fill="#ccf"/><rect x="4" y="11" width="7" height="1.2" fill="#ccf"/></svg>
+      </div>
+      <div class="title-bar-text">Blog</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space" style="overflow:auto;">
+      <p class="instruction"><span class="instruction-primary">Latest Articles</span></p>
+      <div class="blog-list">
+        <div class="blog-post">
+          <div class="blog-meta"><span class="blog-cat">Web Dev</span><span class="blog-date">Aug 5, 2026</span></div>
+          <h3>Building a Windows 7 UI in Pure CSS</h3>
+          <p>A deep dive into recreating the iconic Aero glass design using modern CSS features like backdrop-filter, gradients and box shadows...</p>
+          <a href="#" onclick="return false;">Read More →</a>
+        </div>
+        <div class="blog-post">
+          <div class="blog-meta"><span class="blog-cat">JavaScript</span><span class="blog-date">Jul 22, 2026</span></div>
+          <h3>Drag & Drop from Scratch — No Libraries</h3>
+          <p>Pointer Events API makes building reliable drag and drop experiences simple. Learn how to implement it step by step...</p>
+          <a href="#" onclick="return false;">Read More →</a>
+        </div>
+        <div class="blog-post">
+          <div class="blog-meta"><span class="blog-cat">Design</span><span class="blog-date">Jul 10, 2026</span></div>
+          <h3>Why Skeuomorphism is Making a Comeback</h3>
+          <p>After a decade of flat design dominance, designers are rediscovering the charm and usability benefits of realistic textures...</p>
+          <a href="#" onclick="return false;">Read More →</a>
+        </div>
+        <div class="blog-post">
+          <div class="blog-meta"><span class="blog-cat">React</span><span class="blog-date">Jun 30, 2026</span></div>
+          <h3>State Management in 2026: What Actually Works</h3>
+          <p>A practical comparison of Zustand, Jotai, Redux Toolkit, and React's built-in Context API for modern applications...</p>
+          <a href="#" onclick="return false;">Read More →</a>
+        </div>
+      </div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+  <!-- My Computer Window -->
+  <div id="win-mycomputer" class="os-window draggable resizable" style="left:320px;top:70px;width:480px;height:360px;">
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="9" rx="1" fill="#9ec"/><rect x="6" y="11" width="4" height="2" fill="#9ec"/><rect x="4" y="13" width="8" height="1" rx="0.5" fill="#9ec"/></svg>
+      </div>
+      <div class="title-bar-text">My Computer</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize" title="Minimize"></button>
+        <button aria-label="Maximize" title="Maximize"></button>
+        <button aria-label="Close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="padding:0;overflow:auto;display:flex;flex-direction:column;">
+      <!-- Menu bar -->
+      <ul role="menubar" class="can-hover">
+        <li role="menuitem" tabindex="0">File
+          <ul role="menu">
+            <li role="menuitem"><button onclick="return false;">New Window</button></li>
+            <li role="menuitem" class="has-divider"><button onclick="return false;">Properties</button></li>
+            <li role="menuitem"><button onclick="closeActiveWindow()">Close</button></li>
+          </ul>
+        </li>
+        <li role="menuitem" tabindex="0">View
+          <ul role="menu">
+            <li role="menuitem"><button onclick="return false;">Large Icons</button></li>
+            <li role="menuitem"><button onclick="return false;">List</button></li>
+            <li role="menuitem"><button onclick="return false;">Details</button></li>
+          </ul>
+        </li>
+        <li role="menuitem" tabindex="0">Help
+          <ul role="menu">
+            <li role="menuitem"><button onclick="openWindow('win-about')">About AmanOS</button></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="explorer-body">
+        <div class="explorer-sidebar">
+          <div class="sidebar-section">System Folders</div>
+          <ul class="tree-view">
+            <li>📁 Desktop</li>
+            <li>📁 Documents</li>
+            <li>📁 Downloads</li>
+            <li>📁 Pictures</li>
+          </ul>
+        </div>
+        <div class="explorer-main">
+          <div class="explorer-item" ondblclick="openWindow('win-about')">
+            <div class="ei-icon">👤</div><span>About Us</span>
+          </div>
+          <div class="explorer-item" ondblclick="openWindow('win-services')">
+            <div class="ei-icon">🖥️</div><span>Services</span>
+          </div>
+          <div class="explorer-item" ondblclick="openWindow('win-portfolio')">
+            <div class="ei-icon">💼</div><span>Portfolio</span>
+          </div>
+          <div class="explorer-item" ondblclick="openWindow('win-contact')">
+            <div class="ei-icon">📧</div><span>Contact</span>
+          </div>
+          <div class="explorer-item" ondblclick="openWindow('win-blog')">
+            <div class="ei-icon">📝</div><span>Blog</span>
+          </div>
+        </div>
+      </div>
+      <div class="status-bar">
+        <p class="status-bar-field">5 objects</p>
+        <p class="status-bar-field">AmanOS v1.0</p>
+        <p class="status-bar-field">Ready</p>
+      </div>
+    </div>
+    <div class="resize-handle n" data-dir="n"></div><div class="resize-handle s" data-dir="s"></div>
+    <div class="resize-handle e" data-dir="e"></div><div class="resize-handle w" data-dir="w"></div>
+    <div class="resize-handle nw" data-dir="nw"></div><div class="resize-handle ne" data-dir="ne"></div>
+    <div class="resize-handle sw" data-dir="sw"></div><div class="resize-handle se" data-dir="se"></div>
+  </div>
+
+</div><!-- /desktop -->
+
+<!-- ===== START MENU ===== -->
+<div id="start-menu" class="start-menu" aria-hidden="true">
+  <div class="start-menu-left">
+    <div class="start-user-panel">
+      <div class="start-user-avatar">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="13" r="9" fill="#4fc3f7"/><path d="M4 40c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#0288d1"/></svg>
+      </div>
+      <span class="start-user-name">Aman</span>
+    </div>
+    <div class="start-pinned-divider"></div>
+    <ul class="start-app-list">
+      <li class="start-app-item" onclick="launchApp('win-about')">
+        <span class="start-app-icon">👤</span> About Us
+      </li>
+      <li class="start-app-item" onclick="launchApp('win-services')">
+        <span class="start-app-icon">🖥️</span> Services
+      </li>
+      <li class="start-app-item" onclick="launchApp('win-portfolio')">
+        <span class="start-app-icon">💼</span> Portfolio
+      </li>
+      <li class="start-app-item" onclick="launchApp('win-contact')">
+        <span class="start-app-icon">📧</span> Contact Us
+      </li>
+      <li class="start-app-item" onclick="launchApp('win-blog')">
+        <span class="start-app-icon">📝</span> Blog
+      </li>
+      <li class="start-app-item" onclick="launchApp('win-mycomputer')">
+        <span class="start-app-icon">💻</span> My Computer
+      </li>
+    </ul>
+  </div>
+  <div class="start-menu-right">
+    <ul class="start-right-list">
+      <li onclick="launchApp('win-mycomputer')">💻 My Computer</li>
+      <li onclick="launchApp('win-about')">📄 Documents</li>
+      <li class="start-divider"></li>
+      <li onclick="launchApp('win-contact')">⚙️ Control Panel</li>
+      <li class="start-divider"></li>
+      <li onclick="confirmShutdown()">⏻ Shut Down</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== TASKBAR ===== -->
+<div id="taskbar" class="taskbar">
+  <!-- Start Button -->
+  <button id="start-btn" class="start-button" onclick="toggleStartMenu()" title="Start">
+    <span class="start-orb"></span>
+    <span class="start-label">Start</span>
+  </button>
+
+  <!-- Quick Launch -->
+  <div class="quick-launch" id="quick-launch">
+    <button class="ql-btn" title="About Us" onclick="launchApp('win-about')">👤</button>
+    <button class="ql-btn" title="Services" onclick="launchApp('win-services')">🖥️</button>
+    <button class="ql-btn" title="Portfolio" onclick="launchApp('win-portfolio')">💼</button>
+    <button class="ql-btn" title="Contact Us" onclick="launchApp('win-contact')">📧</button>
+    <button class="ql-btn" title="Blog" onclick="launchApp('win-blog')">📝</button>
+    <div class="ql-sep"></div>
+  </div>
+
+  <!-- Taskbar Buttons (open windows) -->
+  <div id="taskbar-buttons" class="taskbar-buttons"></div>
+
+  <!-- System Tray -->
+  <div class="system-tray">
+    <div class="tray-icons">
+      <span title="Network Connected">🌐</span>
+      <span title="Sound">🔊</span>
+    </div>
+    <div class="tray-clock">
+      <div id="tray-time" class="tray-time">12:00</div>
+      <div id="tray-date" class="tray-date">Mon 1/1</div>
+    </div>
+    <button class="show-desktop-btn" id="show-desktop-btn" title="Show Desktop"></button>
+  </div>
+</div>
+
+<!-- Shutdown dialog -->
+<div id="shutdown-dialog" class="os-window" role="dialog" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;z-index:9999;">
+  <div class="title-bar active">
+    <div class="title-bar-text">Shut Down Windows</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close" onclick="document.getElementById('shutdown-dialog').style.display='none'"></button>
+    </div>
+  </div>
+  <div class="window-body has-space" style="text-align:center;">
+    <p>Are you sure you want to shut down AmanOS?</p>
+    <section style="display:flex;gap:6px;justify-content:center;margin-top:8px;">
+      <button class="default" onclick="doShutdown()">Shut Down</button>
+      <button onclick="document.getElementById('shutdown-dialog').style.display='none'">Cancel</button>
+    </section>
+  </div>
+</div>
+<div id="shutdown-screen" style="display:none;position:fixed;inset:0;background:#000;z-index:99999;">
+  <div style="color:#fff;font-size:18pt;font-family:'Segoe UI',sans-serif;margin-bottom:16px;">Shutting down...</div>
+  <div role="progressbar" style="width:200px;"><div style="width:100%;animation:progressbar 2s linear infinite;"></div></div>
+</div>
+
+<script src="assets/js/ui.js"></script>
 </body>
-
 </html>
