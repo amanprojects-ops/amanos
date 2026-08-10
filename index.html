@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" translate="no">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMAN OS</title>
+
+  <!-- 7.css -->
+  <link rel="stylesheet" href="assets/css/os.css" />
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: url("bg.jpg") center center / cover no-repeat fixed;
+    }
+
+    /* Desktop layer */
+    .desktop {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* Our window: absolute so we can move it */
+    .window.draggable {
+      position: absolute;
+      left: 80px;
+      top: 80px;
+      width: 400px;
+      /* you had max-width:400px; width feels more "window-like" */
+      max-width: 90vw;
+      user-select: none;
+      /* avoid selecting while dragging */
+      touch-action: none;
+      /* makes pointer dragging smoother on touch devices */
+    }
+
+    /* Allow selecting inside content */
+    .window .window-body {
+      user-select: text;
+      touch-action: auto;
+    }
+
+    .window .title-bar {
+      cursor: grab;
+    }
+
+    .window.dragging .title-bar {
+      cursor: grabbing;
+    }
+
+    /* Minimized state: show only title bar */
+    .window.minimized .window-body {
+      display: none;
+    }
+
+    /* Simple hidden/closed state */
+    .window.closed {
+      display: none !important;
+    }
+
+    /* When maximized, we fill the desktop */
+    .window.maximized {
+      left: 0 !important;
+      top: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+    }
+
+    /* Make the window lay out title bar + body vertically */
+    .window.draggable {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Let the body take all remaining space and be the scrolling area */
+    .window.draggable .window-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      /* IMPORTANT: allows inner overflow to work in flex */
+      overflow: auto;
+    }
+
+    /* Title bar should not flex */
+    .window.draggable .title-bar {
+      flex: 0 0 auto;
+    }
+
+    /*** VIDEO WRAP ***/
+
+    .video-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      /* keep ratio while resizing */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-wrap>iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+
+    /*** RESIZE ***/
+
+    /* Allow resizing to have room + prevent selection while resizing */
+    .window.resizable {
+      min-width: 260px;
+      min-height: 140px;
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+
+    /* Don’t show resize handles when maximized */
+    .window.maximized .resize-handle {
+      display: none;
+    }
+
+    /* Invisible handles */
+    .resize-handle {
+      position: absolute;
+      z-index: 10;
+      background: transparent;
+    }
+
+    /* Edges */
+    .resize-handle.n {
+      top: -4px;
+      left: 8px;
+      right: 8px;
+      height: 8px;
+      cursor: ns-resize;
+    }
+
+    .resize-handle.s {
+      bottom: -4px;
+      left: 8px;
+      right: 8px;
+      height: 8px;
+      cursor: ns-resize;
+    }
+
+    .resize-handle.e {
+      right: -4px;
+      top: 8px;
+      bottom: 8px;
+      width: 8px;
+      cursor: ew-resize;
+    }
+
+    .resize-handle.w {
+      left: -4px;
+      top: 8px;
+      bottom: 8px;
+      width: 8px;
+      cursor: ew-resize;
+    }
+
+    /* Corners */
+    .resize-handle.nw {
+      left: -4px;
+      top: -4px;
+      width: 12px;
+      height: 12px;
+      cursor: nwse-resize;
+    }
+
+    .resize-handle.ne {
+      right: -4px;
+      top: -4px;
+      width: 12px;
+      height: 12px;
+      cursor: nesw-resize;
+    }
+
+    .resize-handle.sw {
+      left: -4px;
+      bottom: -4px;
+      width: 12px;
+      height: 12px;
+      cursor: nesw-resize;
+    }
+
+    .resize-handle.se {
+      right: -4px;
+      bottom: -4px;
+      width: 12px;
+      height: 12px;
+      cursor: nwse-resize;
+    }
+
+    .window.resizable .window-body {
+      overflow: auto;
+    }
+
+
+    /* --- Desktop icon --- */
+    .desktop-icon {
+      position: absolute;
+      left: 24px;
+      top: 24px;
+
+      width: 92px;
+      padding: 8px 6px;
+      border-radius: 4px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
+      cursor: default;
+      user-select: none;
+      outline: none;
+    }
+
+    /* icon image */
+    .desktop-icon img {
+      width: 48px;
+      height: 48px;
+      image-rendering: auto;
+      pointer-events: none;
+    }
+
+    /* label */
+    .desktop-icon .label {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.1;
+      text-align: center;
+      padding: 2px 4px;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* Windows-ish selection */
+    .desktop-icon.selected {
+      background: rgba(0, 120, 215, 0.35);
+      outline: 1px solid rgba(160, 210, 255, 0.8);
+    }
+
+    /* selected label background like Windows */
+    .desktop-icon.selected .label {
+      background: rgba(0, 120, 215, 0.55);
+    }
+
+    /* keyboard focus ring */
+    .desktop-icon:focus-visible {
+      outline: 1px dotted rgba(255, 255, 255, 0.9);
+      outline-offset: 2px;
+    }
+
+    .window .title-bar {
+      position: relative;
+      z-index: 20;
+    }
+
+    .window .title-bar-controls {
+      position: relative;
+      z-index: 30;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="desktop">
+
+    <div id="appIcon" class="desktop-icon" tabindex="0" aria-label="Example App">
+      <img src="icon.png" alt="" />
+      <div class="label">Example App</div>
+    </div>
+
+    <div id="appWindow" class="window active draggable resizable" style="width: 400px;">
+      <div class="title-bar">
+        <div class="title-bar-text">Example App</div>
+        <div class="title-bar-controls">
+          <button id="btnMin" aria-label="Minimize" title="Minimize"></button>
+          <button id="btnMax" aria-label="Maximize" title="Maximize"></button>
+          <button id="btnClose" aria-label="Close" title="Close"></button>
+        </div>
+      </div>
+
+      <div class="window-body has-space">
+        <menu role="tablist" aria-label="Window with Tabs">
+          <button role="tab" aria-controls="music" aria-selected="true">Music</button>
+          <button role="tab" aria-controls="dogs">Dogs</button>
+          <button role="tab" aria-controls="food">Food</button>
+        </menu>
+
+        <article role="tabpanel" id="music">
+          <p>Source code can be found at:<br>
+            <a href="https://amanprojects.com">Aman Projects</a>
+          </p>
+          <p>Set your listening preferences</p>
+          <fieldset>
+            <legend>Today's mood</legend>
+            <div>
+              <input id="radio33" type="radio" name="fieldset-example2">
+              <label for="radio33">Nicki Minaj</label>
+            </div>
+            <div>
+              <input id="radio34" type="radio" name="fieldset-example2">
+              <label for="radio34">Bell Towers</label>
+            </div>
+            <div>
+              <input id="radio35" type="radio" name="fieldset-example2">
+              <label for="radio35">The Glamorous Monique</label>
+            </div>
+            <div>
+              <input id="radio36" type="radio" name="fieldset-example2">
+              <label for="radio36">EN. V</label>
+            </div>
+          </fieldset>
+          <section style="display: flex; gap: 6px; align-items: center">
+            <button>Reset Alarm...</button>
+            <label>Try this to get some attention</label>
+          </section>
+        </article>
+
+        <article role="tabpanel" hidden id="dogs" style="overflow: hidden">
+          <img src="#" alt="no image" style="width: 100%; max-width: 640px" />
+        </article>
+
+        <article role="tabpanel" hidden id="food">
+          <p>
+            You create the content for each tab by using an <code>article</code> tag.
+          </p>
+
+          <div class="video-wrap">
+            <iframe src="" title="YouTube video player"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+          </div>
+        </article>
+
+        <section style="display: flex; justify-content: flex-end; gap: 6px">
+          <button class="default">OK</button>
+          <button>Cancel</button>
+        </section>
+      </div>
+
+      <!-- resize handles -->
+      <div class="resize-handle n" data-dir="n"></div>
+      <div class="resize-handle s" data-dir="s"></div>
+      <div class="resize-handle e" data-dir="e"></div>
+      <div class="resize-handle w" data-dir="w"></div>
+      <div class="resize-handle nw" data-dir="nw"></div>
+      <div class="resize-handle ne" data-dir="ne"></div>
+      <div class="resize-handle sw" data-dir="sw"></div>
+      <div class="resize-handle se" data-dir="se"></div>
+    </div>
+  </div>
+
+ <script src="assets/js/ui.js"></script>
+
+</body>
+
+</html>
