@@ -468,10 +468,187 @@ window.addEventListener('resize', () => {
 });
 
 // =========================================================
+//  LOGIN / BOOT SCREEN
+// =========================================================
+
+const LOGIN_CREDENTIALS = {
+  username: 'aman',
+  password: 'aman123',
+};
+
+// Avatar SVG content shared between password panel & welcome screen
+const AVATARS = {
+  aman: `<defs>
+    <radialGradient id="wa1" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#fde8c8"/>
+      <stop offset="100%" stop-color="#d4956a"/>
+    </radialGradient>
+    <linearGradient id="wa2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5ab4f0"/>
+      <stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="32" cy="56" rx="22" ry="12" fill="url(#wa2)"/>
+  <ellipse cx="32" cy="48" rx="17" ry="10" fill="url(#wa2)"/>
+  <rect x="27" y="33" width="10" height="9" rx="4" fill="url(#wa1)"/>
+  <circle cx="32" cy="27" r="14" fill="url(#wa1)"/>
+  <ellipse cx="32" cy="15" rx="14" ry="7" fill="#5a3010"/>
+  <ellipse cx="19" cy="22" rx="5" ry="9" fill="#5a3010"/>
+  <ellipse cx="45" cy="22" rx="5" ry="9" fill="#5a3010"/>
+  <ellipse cx="27" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+  <ellipse cx="37" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+  <circle cx="28" cy="26" r="0.8" fill="#fff"/>
+  <circle cx="38" cy="26" r="0.8" fill="#fff"/>
+  <path d="M27 31 Q32 35 37 31" stroke="#b07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+
+  guest: `<circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <circle cx="32" cy="24" r="12" fill="rgba(255,255,255,0.5)"/>
+  <ellipse cx="32" cy="52" rx="19" ry="12" fill="rgba(255,255,255,0.4)"/>`,
+};
+
+/** Update the login screen clock every second */
+function updateLoginClock() {
+  const now  = new Date();
+  const h    = String(now.getHours()).padStart(2, '0');
+  const m    = String(now.getMinutes()).padStart(2, '0');
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const mons = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  const timeEl = document.getElementById('login-time');
+  const dateEl = document.getElementById('login-date');
+  if (timeEl) timeEl.textContent = `${h}:${m}`;
+  if (dateEl) dateEl.textContent = `${days[now.getDay()]}, ${mons[now.getMonth()]} ${now.getDate()}`;
+}
+
+/** Hide boot screen → show login screen */
+function showLoginScreen() {
+  const boot  = document.getElementById('boot-screen');
+  const login = document.getElementById('login-screen');
+
+  boot.classList.add('fade-out');
+  setTimeout(() => {
+    boot.style.display = 'none';
+    login.classList.remove('hidden');
+  }, 650);
+}
+
+/** Called when user clicks a user card */
+function selectUser(user) {
+  if (user === 'guest') {
+    showWelcome('guest', 'Guest');
+    return;
+  }
+  // Show password panel
+  document.getElementById('login-user-select').classList.add('hidden');
+  const pwPanel = document.getElementById('login-password-panel');
+  pwPanel.classList.remove('hidden');
+  setTimeout(() => {
+    const input = document.getElementById('login-password-input');
+    if (input) input.focus();
+  }, 50);
+}
+
+/** Handle Enter key in password field */
+function handlePasswordKey(e) {
+  if (e.key === 'Enter') doLogin();
+}
+
+/** Validate password and proceed */
+function doLogin() {
+  const input = document.getElementById('login-password-input');
+  const errEl = document.getElementById('login-error');
+  const val   = input ? input.value : '';
+
+  if (val === LOGIN_CREDENTIALS.password) {
+    errEl.classList.add('hidden');
+    showWelcome('aman', 'Aman');
+  } else {
+    errEl.classList.remove('hidden');
+    input.value = '';
+    input.focus();
+    // Shake the input row
+    const row = input.closest('.lpanel-password-row');
+    if (row) {
+      row.style.animation = 'none';
+      row.offsetHeight; // reflow
+      row.style.animation = 'loginShake 0.4s ease';
+    }
+  }
+}
+
+/** Go back to user selection */
+function backToUserSelect() {
+  document.getElementById('login-password-panel').classList.add('hidden');
+  document.getElementById('login-error').classList.add('hidden');
+  document.getElementById('login-password-input').value = '';
+  document.getElementById('login-user-select').classList.remove('hidden');
+}
+
+/** Show welcome animation then enter desktop */
+function showWelcome(user, displayName) {
+  // Hide all panels
+  document.getElementById('login-user-select').classList.add('hidden');
+  document.getElementById('login-password-panel').classList.add('hidden');
+
+  const welcome    = document.getElementById('login-welcome');
+  const avatarSvg  = document.getElementById('lwelcome-avatar-svg');
+  const nameEl     = document.getElementById('lwelcome-name');
+
+  avatarSvg.innerHTML = AVATARS[user] || AVATARS.guest;
+  nameEl.textContent  = `Welcome, ${displayName}`;
+  welcome.classList.remove('hidden');
+
+  // After ~2.2 s boot into the desktop
+  setTimeout(() => enterDesktop(), 2200);
+}
+
+/** Fade login screen out, reveal desktop */
+function enterDesktop() {
+  const loginScreen = document.getElementById('login-screen');
+  const desktop     = document.getElementById('desktop');
+
+  loginScreen.classList.add('fade-out');
+  desktop.classList.remove('desktop--hidden');
+  desktop.classList.add('desktop--reveal');
+
+  setTimeout(() => {
+    loginScreen.style.display = 'none';
+  }, 750);
+}
+
+// =========================================================
 //  INIT
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Boot/Login sequence ───────────────────────────────
+  // Keep desktop invisible until the user logs in
+  const desktop = document.getElementById('desktop');
+  if (desktop) desktop.classList.add('desktop--hidden');
+
+  // Start login clock immediately
+  updateLoginClock();
+  setInterval(updateLoginClock, 10000);
+
+  // After boot animation (~2.4 s) transition to login screen
+  setTimeout(showLoginScreen, 2400);
+
+  // Shake keyframe (injected once programmatically)
+  if (!document.getElementById('login-shake-style')) {
+    const s = document.createElement('style');
+    s.id = 'login-shake-style';
+    s.textContent = `@keyframes loginShake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-5px); }
+      80%      { transform: translateX(5px); }
+    }`;
+    document.head.appendChild(s);
+  }
+  // ─────────────────────────────────────────────────────
+
   // Wire up all windows (skip dialogs that aren't real app windows)
   document.querySelectorAll('.os-window:not([role="dialog"])').forEach(win => {
     makeDraggable(win);

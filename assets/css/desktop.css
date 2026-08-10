@@ -1168,3 +1168,438 @@ body.wp-energy::before {
   display: flex;
   align-items: center;
 }
+
+
+/* ==========================================================
+   BOOT SCREEN
+   ========================================================== */
+
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  transition: opacity 0.6s ease;
+}
+
+.boot-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.boot-win-logo {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 24px rgba(0,164,239,.5));
+  animation: bootLogoFadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes bootLogoFadeIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.boot-os-name {
+  font-family: "Segoe UI Light", "Segoe UI", sans-serif;
+  font-size: 28px;
+  font-weight: 200;
+  letter-spacing: 4px;
+  color: #fff;
+  opacity: 0;
+  animation: bootLogoFadeIn 1s ease 0.3s forwards;
+}
+
+/* Dot spinner — used on both boot and welcome screens */
+.boot-spinner {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.boot-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  animation: bootDotPulse 1.4s ease-in-out infinite;
+}
+
+.boot-dot:nth-child(1) { animation-delay: 0s; }
+.boot-dot:nth-child(2) { animation-delay: 0.18s; }
+.boot-dot:nth-child(3) { animation-delay: 0.36s; }
+.boot-dot:nth-child(4) { animation-delay: 0.54s; }
+.boot-dot:nth-child(5) { animation-delay: 0.72s; }
+
+@keyframes bootDotPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1.15); }
+}
+
+/* ==========================================================
+   LOGIN SCREEN
+   ========================================================== */
+
+.login-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #0a1628 0%, #0d2244 20%, #1a4878 45%, #2a6090 60%, #163256 75%, #091828 100%);
+  transition: opacity 0.7s ease;
+}
+
+.login-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.login-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* background shimmer overlay */
+.login-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 85%, rgba(80,180,255,.16) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 15%, rgba(140,100,255,.12) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 50% at 50% 50%, rgba(0,90,180,.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Clock top-right */
+.login-clock-area {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  text-align: right;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 6px rgba(0,0,0,.7);
+  pointer-events: none;
+}
+
+.login-time {
+  font-family: "Segoe UI Light", "Segoe UI", sans-serif;
+  font-size: 52px;
+  font-weight: 100;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.login-date {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+/* ==========================================================
+   LOGIN PANELS  (shared base)
+   ========================================================== */
+
+.login-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  animation: panelIn 0.35s ease;
+}
+
+.login-panel.hidden {
+  display: none;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.login-heading {
+  font-family: "Segoe UI Light", "Segoe UI", sans-serif;
+  font-size: 22px;
+  font-weight: 200;
+  color: #fff;
+  margin: 0 0 4px;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 8px rgba(0,0,0,.6);
+}
+
+/* ==========================================================
+   USER CARDS
+   ========================================================== */
+
+.login-user-cards {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.login-user-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 24px 20px 18px;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.18s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  outline: none;
+  box-shadow: 0 4px 24px rgba(0,0,0,.35);
+}
+
+.login-user-card:hover,
+.login-user-card:focus {
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 2px rgba(100,180,255,.3);
+}
+
+.login-user-card:active {
+  transform: translateY(0);
+}
+
+.luc-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: linear-gradient(135deg, #1a4a80, #0d2444);
+}
+
+.luc-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.luc-avatar--guest {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.luc-name {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.luc-hint {
+  font-size: 11px;
+  opacity: 0.55;
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================================
+   PASSWORD PANEL
+   ========================================================== */
+
+.lpanel-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, #1a4a80, #0d2444);
+  box-shadow: 0 4px 20px rgba(0,0,0,.5);
+}
+
+.lpanel-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.lpanel-name {
+  font-family: "Segoe UI Light", "Segoe UI", sans-serif;
+  font-size: 26px;
+  font-weight: 200;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 8px rgba(0,0,0,.6);
+}
+
+.lpanel-password-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255,255,255,0.92);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.4), inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+.lpanel-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 9px 12px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  width: 220px;
+  color: #1a1a1a;
+}
+
+.lpanel-input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+.lpanel-submit {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: linear-gradient(180deg, #3a8fd4 0%, #1a62a8 100%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.lpanel-submit:hover {
+  background: linear-gradient(180deg, #5aaae0 0%, #2a78c0 100%);
+}
+
+.lpanel-submit:active {
+  background: linear-gradient(180deg, #1a62a8 0%, #0e4880 100%);
+}
+
+.lpanel-submit svg {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.lpanel-error {
+  font-size: 12px;
+  color: #ffaaaa;
+  background: rgba(200,30,30,0.25);
+  border: 1px solid rgba(255,80,80,0.35);
+  border-radius: 4px;
+  padding: 5px 12px;
+  text-align: center;
+}
+
+.lpanel-error.hidden {
+  display: none;
+}
+
+.lpanel-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
+
+.lpanel-hint em {
+  font-style: normal;
+  color: rgba(255,255,255,0.6);
+}
+
+.lpanel-back {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.55);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+  margin-top: -8px;
+}
+
+.lpanel-back:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+/* ==========================================================
+   WELCOME / LOGGING-IN OVERLAY
+   ========================================================== */
+
+.login-welcome {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: linear-gradient(160deg, #0a1628 0%, #0d2244 20%, #1a4878 45%, #2a6090 60%, #163256 75%, #091828 100%);
+  animation: panelIn 0.4s ease;
+}
+
+.login-welcome.hidden {
+  display: none;
+}
+
+.lwelcome-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.4);
+  background: linear-gradient(135deg, #1a4a80, #0d2444);
+  box-shadow: 0 0 32px rgba(60,140,255,.3);
+}
+
+.lwelcome-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.lwelcome-name {
+  font-family: "Segoe UI Light", "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 100;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.6);
+}
+
+.lwelcome-spinner {
+  margin-top: 8px;
+}
+
+/* Desktop hidden state until login completes */
+#desktop.desktop--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#desktop.desktop--reveal {
+  animation: desktopReveal 0.7s ease forwards;
+}
+
+@keyframes desktopReveal {
+  from { opacity: 0; transform: scale(1.02); }
+  to   { opacity: 1; transform: scale(1); }
+}

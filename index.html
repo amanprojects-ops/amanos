@@ -9,6 +9,163 @@
 </head>
 <body>
 
+<!-- ===== BOOT SCREEN ===== -->
+<div id="boot-screen" class="boot-screen" aria-live="polite">
+  <div class="boot-logo">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" class="boot-win-logo">
+      <path d="M4 12 L38 7 L38 38 L4 38 Z"  fill="#F25022"/>
+      <path d="M42 6 L76 1 L76 38 L42 38 Z" fill="#7FBA00"/>
+      <path d="M4 42 L38 42 L38 73 L4 68 Z" fill="#00A4EF"/>
+      <path d="M42 42 L76 42 L76 79 L42 74 Z" fill="#FFB900"/>
+    </svg>
+    <div class="boot-os-name">AmanOS</div>
+  </div>
+  <div class="boot-spinner">
+    <div class="boot-dot"></div>
+    <div class="boot-dot"></div>
+    <div class="boot-dot"></div>
+    <div class="boot-dot"></div>
+    <div class="boot-dot"></div>
+  </div>
+</div>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="login-screen" class="login-screen hidden" aria-label="Login">
+
+  <!-- Background blur layer -->
+  <div class="login-bg"></div>
+
+  <!-- Time & Date (top-right, like Win lock screen) -->
+  <div class="login-clock-area">
+    <div id="login-time" class="login-time">00:00</div>
+    <div id="login-date" class="login-date">Monday, January 1</div>
+  </div>
+
+  <!-- User selection panel -->
+  <div id="login-user-select" class="login-panel">
+    <h2 class="login-heading">Sign in to AmanOS</h2>
+    <div class="login-user-cards">
+
+      <!-- Aman card -->
+      <button class="login-user-card" id="card-aman" onclick="selectUser('aman')" aria-label="Login as Aman">
+        <div class="luc-avatar">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="av1" cx="40%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="#fde8c8"/>
+                <stop offset="100%" stop-color="#d4956a"/>
+              </radialGradient>
+              <linearGradient id="av2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#5ab4f0"/>
+                <stop offset="100%" stop-color="#1565c0"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="32" cy="56" rx="22" ry="12" fill="url(#av2)"/>
+            <ellipse cx="32" cy="48" rx="17" ry="10" fill="url(#av2)"/>
+            <rect x="27" y="33" width="10" height="9" rx="4" fill="url(#av1)"/>
+            <circle cx="32" cy="27" r="14" fill="url(#av1)"/>
+            <ellipse cx="32" cy="15" rx="14" ry="7" fill="#5a3010"/>
+            <ellipse cx="19" cy="22" rx="5" ry="9" fill="#5a3010"/>
+            <ellipse cx="45" cy="22" rx="5" ry="9" fill="#5a3010"/>
+            <ellipse cx="27" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+            <ellipse cx="37" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+            <circle cx="28" cy="26" r="0.8" fill="#fff"/>
+            <circle cx="38" cy="26" r="0.8" fill="#fff"/>
+            <path d="M27 31 Q32 35 37 31" stroke="#b07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="luc-name">Aman</div>
+        <div class="luc-hint">Password protected</div>
+      </button>
+
+      <!-- Guest card -->
+      <button class="login-user-card" id="card-guest" onclick="selectUser('guest')" aria-label="Login as Guest">
+        <div class="luc-avatar luc-avatar--guest">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+            <circle cx="32" cy="24" r="12" fill="rgba(255,255,255,0.5)"/>
+            <ellipse cx="32" cy="52" rx="19" ry="12" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <div class="luc-name">Guest</div>
+        <div class="luc-hint">No password needed</div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Password panel (shown after selecting Aman) -->
+  <div id="login-password-panel" class="login-panel hidden">
+    <div class="lpanel-avatar">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="pav1" cx="40%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#fde8c8"/>
+            <stop offset="100%" stop-color="#d4956a"/>
+          </radialGradient>
+          <linearGradient id="pav2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#5ab4f0"/>
+            <stop offset="100%" stop-color="#1565c0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="32" cy="56" rx="22" ry="12" fill="url(#pav2)"/>
+        <ellipse cx="32" cy="48" rx="17" ry="10" fill="url(#pav2)"/>
+        <rect x="27" y="33" width="10" height="9" rx="4" fill="url(#pav1)"/>
+        <circle cx="32" cy="27" r="14" fill="url(#pav1)"/>
+        <ellipse cx="32" cy="15" rx="14" ry="7" fill="#5a3010"/>
+        <ellipse cx="19" cy="22" rx="5" ry="9" fill="#5a3010"/>
+        <ellipse cx="45" cy="22" rx="5" ry="9" fill="#5a3010"/>
+        <ellipse cx="27" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+        <ellipse cx="37" cy="27" rx="2.2" ry="2.5" fill="#3a2010"/>
+        <circle cx="28" cy="26" r="0.8" fill="#fff"/>
+        <circle cx="38" cy="26" r="0.8" fill="#fff"/>
+        <path d="M27 31 Q32 35 37 31" stroke="#b07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="lpanel-name">Aman</div>
+
+    <div class="lpanel-password-row">
+      <input
+        type="password"
+        id="login-password-input"
+        class="lpanel-input"
+        placeholder="Password"
+        aria-label="Password"
+        onkeydown="handlePasswordKey(event)"
+        autocomplete="current-password"
+      />
+      <button class="lpanel-submit" onclick="doLogin()" aria-label="Sign in" title="Sign in">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8 L13 8 M9 4 L13 8 L9 12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="login-error" class="lpanel-error hidden">Incorrect password. Try again.</div>
+    <div class="lpanel-hint">Hint: <em>aman123</em></div>
+
+    <button class="lpanel-back" onclick="backToUserSelect()" aria-label="Back to user selection">
+      ← Back
+    </button>
+  </div>
+
+  <!-- Welcome / logging-in overlay -->
+  <div id="login-welcome" class="login-welcome hidden">
+    <div class="lwelcome-avatar">
+      <svg id="lwelcome-avatar-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div id="lwelcome-name" class="lwelcome-name">Welcome</div>
+    <div class="boot-spinner lwelcome-spinner">
+      <div class="boot-dot"></div>
+      <div class="boot-dot"></div>
+      <div class="boot-dot"></div>
+      <div class="boot-dot"></div>
+      <div class="boot-dot"></div>
+    </div>
+  </div>
+
+</div>
+
 <!-- ===== DESKTOP ===== -->
 <div id="desktop" class="desktop">
 
