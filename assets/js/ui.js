@@ -517,3 +517,99 @@ document.addEventListener('DOMContentLoaded', () => {
   updateClock();
   setInterval(updateClock, 10000);
 });
+
+// =========================================================
+//  WALLPAPER PICKER
+// =========================================================
+
+const WP_CLASSES = ['wp-aurora','wp-bliss','wp-dusk','wp-night','wp-forest','wp-energy'];
+
+function setWallpaper(wpClass, swatchEl) {
+  // Remove all wallpaper classes
+  WP_CLASSES.forEach(c => document.body.classList.remove(c));
+  // Apply new one
+  document.body.classList.add(wpClass);
+  // Update active swatch
+  document.querySelectorAll('.wp-swatch').forEach(s => s.classList.remove('active'));
+  if (swatchEl) swatchEl.classList.add('active');
+  // Persist
+  try { localStorage.setItem('amanos-wallpaper', wpClass); } catch(_) {}
+}
+
+function openWallpaperPicker() {
+  closeCtxMenu();
+  document.getElementById('wp-picker').classList.toggle('open');
+}
+
+function loadSavedWallpaper() {
+  try {
+    const saved = localStorage.getItem('amanos-wallpaper');
+    if (saved && WP_CLASSES.includes(saved)) {
+      const swatch = document.querySelector(`.wp-swatch[data-wp="${saved}"]`);
+      setWallpaper(saved, swatch);
+    } else {
+      // default
+      document.body.classList.add('wp-aurora');
+    }
+  } catch(_) {
+    document.body.classList.add('wp-aurora');
+  }
+}
+
+// =========================================================
+//  DESKTOP RIGHT-CLICK CONTEXT MENU
+// =========================================================
+
+const ctxMenu = document.getElementById('ctx-menu');
+
+function openCtxMenu(x, y) {
+  if (!ctxMenu) return;
+  ctxMenu.style.left = Math.min(x, window.innerWidth  - 200) + 'px';
+  ctxMenu.style.top  = Math.min(y, window.innerHeight - 150) + 'px';
+  ctxMenu.classList.add('open');
+}
+
+function closeCtxMenu() {
+  if (ctxMenu) ctxMenu.classList.remove('open');
+}
+
+function sortDesktopIcons() {
+  closeCtxMenu();
+  // Visual feedback only — icons are in fixed order
+  const area = document.querySelector('.desktop-icons-area');
+  if (!area) return;
+  area.style.transition = 'opacity 0.2s';
+  area.style.opacity = '0.5';
+  setTimeout(() => { area.style.opacity = '1'; }, 300);
+}
+
+function refreshDesktop() {
+  closeCtxMenu();
+  // Brief flash effect
+  document.body.style.transition = 'filter 0.15s';
+  document.body.style.filter = 'brightness(0.7)';
+  setTimeout(() => { document.body.style.filter = ''; }, 150);
+}
+
+// Wire context menu on desktop (not on windows/taskbar)
+document.getElementById('desktop')?.addEventListener('contextmenu', e => {
+  // Don't intercept if right-clicking inside a window
+  if (e.target.closest('.os-window')) return;
+  e.preventDefault();
+  closeStartMenu();
+  document.getElementById('wp-picker')?.classList.remove('open');
+  openCtxMenu(e.clientX, e.clientY);
+});
+
+// Close context menu & picker on any click
+document.addEventListener('click', e => {
+  if (ctxMenu && !ctxMenu.contains(e.target)) closeCtxMenu();
+  const picker = document.getElementById('wp-picker');
+  const btn = document.querySelector('.ctx-item[onclick*="openWallpaperPicker"]');
+  if (picker && !picker.contains(e.target) && !(btn && btn.contains(e.target))) {
+    picker.classList.remove('open');
+  }
+});
+
+// Load saved wallpaper on startup
+loadSavedWallpaper();

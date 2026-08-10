@@ -15,75 +15,265 @@
   <!-- Desktop Icons (left column) -->
   <div class="desktop-icons-area">
 
+    <!-- About Us — Windows User/Person icon style -->
     <div class="desktop-icon" data-window="win-about" tabindex="0" aria-label="About Us">
       <div class="di-img">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="14" r="8" fill="#4fc3f7"/>
-          <path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#0288d1"/>
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="ug1" cx="40%" cy="30%" r="60%">
+              <stop offset="0%" stop-color="#a8d8f8"/>
+              <stop offset="100%" stop-color="#1a7bc4"/>
+            </radialGradient>
+            <radialGradient id="ug2" cx="40%" cy="25%" r="65%">
+              <stop offset="0%" stop-color="#fde8c8"/>
+              <stop offset="100%" stop-color="#d4956a"/>
+            </radialGradient>
+            <linearGradient id="ug3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#5ab4f0"/>
+              <stop offset="100%" stop-color="#1565c0"/>
+            </linearGradient>
+          </defs>
+          <!-- Body/shirt -->
+          <ellipse cx="24" cy="42" rx="17" ry="10" fill="url(#ug3)"/>
+          <ellipse cx="24" cy="36" rx="13" ry="8" fill="url(#ug3)"/>
+          <!-- Neck -->
+          <rect x="20" y="25" width="8" height="7" rx="3" fill="url(#ug2)"/>
+          <!-- Head -->
+          <circle cx="24" cy="20" r="11" fill="url(#ug2)"/>
+          <!-- Hair -->
+          <ellipse cx="24" cy="11" rx="11" ry="5" fill="#5a3010"/>
+          <ellipse cx="14" cy="17" rx="4" ry="7" fill="#5a3010"/>
+          <ellipse cx="34" cy="17" rx="4" ry="7" fill="#5a3010"/>
+          <!-- Eyes -->
+          <ellipse cx="20" cy="20" rx="1.8" ry="2" fill="#3a2010"/>
+          <ellipse cx="28" cy="20" rx="1.8" ry="2" fill="#3a2010"/>
+          <!-- Eye shine -->
+          <circle cx="20.8" cy="19.2" r="0.6" fill="#fff"/>
+          <circle cx="28.8" cy="19.2" r="0.6" fill="#fff"/>
+          <!-- Smile -->
+          <path d="M20 24 Q24 27 28 24" stroke="#b07050" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <!-- Collar highlight -->
+          <ellipse cx="24" cy="33" rx="6" ry="2" fill="rgba(255,255,255,0.2)"/>
+          <!-- Shine on head -->
+          <ellipse cx="21" cy="15" rx="4" ry="3" fill="rgba(255,255,255,0.18)" transform="rotate(-20,21,15)"/>
         </svg>
       </div>
       <div class="label">About Us</div>
     </div>
 
+    <!-- Services — Windows Monitor/Computer icon style -->
     <div class="desktop-icon" data-window="win-services" tabindex="0" aria-label="Services">
       <div class="di-img">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="6" width="36" height="28" rx="3" fill="#42a5f5"/>
-          <rect x="18" y="34" width="12" height="4" fill="#1565c0"/>
-          <rect x="12" y="38" width="24" height="3" rx="1" fill="#1565c0"/>
-          <rect x="10" y="10" width="28" height="20" rx="1" fill="#e3f2fd"/>
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mon1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#8ec8f0"/>
+              <stop offset="100%" stop-color="#1a6aad"/>
+            </linearGradient>
+            <linearGradient id="mon2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#e8f4ff"/>
+              <stop offset="60%" stop-color="#b8dcf8"/>
+              <stop offset="100%" stop-color="#5aa8e8"/>
+            </linearGradient>
+            <linearGradient id="mon3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c8c8c8"/>
+              <stop offset="100%" stop-color="#808080"/>
+            </linearGradient>
+          </defs>
+          <!-- Monitor body -->
+          <rect x="4" y="4" width="40" height="30" rx="3" fill="url(#mon1)"/>
+          <!-- Monitor inner border -->
+          <rect x="6" y="6" width="36" height="26" rx="2" fill="#1a4878"/>
+          <!-- Screen -->
+          <rect x="8" y="8" width="32" height="22" rx="1" fill="url(#mon2)"/>
+          <!-- Screen shine -->
+          <rect x="8" y="8" width="32" height="8" rx="1" fill="rgba(255,255,255,0.25)"/>
+          <!-- Screen content lines -->
+          <rect x="12" y="16" width="24" height="2" rx="1" fill="rgba(30,100,200,0.5)"/>
+          <rect x="12" y="20" width="18" height="1.5" rx="0.75" fill="rgba(30,100,200,0.3)"/>
+          <rect x="12" y="23" width="20" height="1.5" rx="0.75" fill="rgba(30,100,200,0.3)"/>
+          <!-- Stand neck -->
+          <rect x="20" y="34" width="8" height="5" fill="url(#mon3)"/>
+          <!-- Stand base -->
+          <rect x="14" y="39" width="20" height="3" rx="1.5" fill="url(#mon3)"/>
+          <!-- Base highlight -->
+          <rect x="16" y="39" width="16" height="1.2" rx="0.6" fill="rgba(255,255,255,0.3)"/>
+          <!-- Monitor highlight top-left -->
+          <rect x="9" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
         </svg>
       </div>
       <div class="label">Services</div>
     </div>
 
+    <!-- Portfolio — Briefcase/folder icon style -->
     <div class="desktop-icon" data-window="win-portfolio" tabindex="0" aria-label="Portfolio">
       <div class="di-img">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="12" width="36" height="28" rx="3" fill="#ffa726"/>
-          <rect x="16" y="8" width="16" height="8" rx="2" fill="#e65100"/>
-          <rect x="10" y="18" width="28" height="2" fill="#fff3e0"/>
-          <rect x="10" y="24" width="20" height="2" fill="#fff3e0"/>
-          <rect x="10" y="30" width="24" height="2" fill="#fff3e0"/>
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bf1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f5c842"/>
+              <stop offset="100%" stop-color="#c88a10"/>
+            </linearGradient>
+            <linearGradient id="bf2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffe066"/>
+              <stop offset="100%" stop-color="#e0a820"/>
+            </linearGradient>
+            <linearGradient id="bf3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#a06010"/>
+              <stop offset="100%" stop-color="#6a3e08"/>
+            </linearGradient>
+          </defs>
+          <!-- Handle -->
+          <rect x="17" y="6" width="14" height="7" rx="3" fill="url(#bf3)"/>
+          <rect x="19" y="8" width="10" height="5" rx="2" fill="url(#bf2)"/>
+          <!-- Body shadow -->
+          <rect x="5" y="15" width="38" height="28" rx="3" fill="rgba(0,0,0,0.2)"/>
+          <!-- Body -->
+          <rect x="4" y="13" width="40" height="28" rx="3" fill="url(#bf1)"/>
+          <!-- Body top highlight -->
+          <rect x="4" y="13" width="40" height="8" rx="3" fill="url(#bf2)"/>
+          <!-- Center strap -->
+          <rect x="4" y="24" width="40" height="6" fill="url(#bf3)"/>
+          <!-- Latch -->
+          <rect x="20" y="22" width="8" height="10" rx="2" fill="url(#bf3)"/>
+          <rect x="21" y="23" width="6" height="8" rx="1.5" fill="#f5c842"/>
+          <circle cx="24" cy="27" r="1.5" fill="url(#bf3)"/>
+          <!-- Side seams -->
+          <rect x="4" y="16" width="2" height="22" rx="1" fill="rgba(0,0,0,0.15)"/>
+          <rect x="42" y="16" width="2" height="22" rx="1" fill="rgba(0,0,0,0.15)"/>
+          <!-- Top shine -->
+          <rect x="6" y="14" width="28" height="4" rx="2" fill="rgba(255,255,255,0.22)"/>
         </svg>
       </div>
       <div class="label">Portfolio</div>
     </div>
 
+    <!-- Contact Us — Envelope/Mail icon style -->
     <div class="desktop-icon" data-window="win-contact" tabindex="0" aria-label="Contact Us">
       <div class="di-img">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="10" width="36" height="28" rx="3" fill="#66bb6a"/>
-          <path d="M6 14l18 12 18-12" stroke="#fff" stroke-width="2"/>
-          <rect x="10" y="14" width="28" height="20" rx="1" fill="none"/>
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="env1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#a8d8a8"/>
+              <stop offset="100%" stop-color="#2e8b2e"/>
+            </linearGradient>
+            <linearGradient id="env2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f0fff0"/>
+              <stop offset="100%" stop-color="#c8e8c8"/>
+            </linearGradient>
+            <linearGradient id="env3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d8f0d8"/>
+              <stop offset="100%" stop-color="#90c890"/>
+            </linearGradient>
+          </defs>
+          <!-- Envelope body -->
+          <rect x="4" y="10" width="40" height="28" rx="3" fill="url(#env1)"/>
+          <!-- Envelope inner -->
+          <rect x="5" y="11" width="38" height="26" rx="2" fill="url(#env2)"/>
+          <!-- Back flap triangle -->
+          <polygon points="4,10 24,26 44,10" fill="url(#env3)"/>
+          <!-- Front flap (open) -->
+          <polygon points="4,10 24,24 44,10" fill="url(#env1)"/>
+          <!-- Flap crease line -->
+          <line x1="4" y1="10" x2="24" y2="24" stroke="rgba(0,100,0,0.3)" stroke-width="0.8"/>
+          <line x1="44" y1="10" x2="24" y2="24" stroke="rgba(0,100,0,0.3)" stroke-width="0.8"/>
+          <!-- Bottom corners -->
+          <polygon points="4,38 24,24 4,24" fill="rgba(0,80,0,0.15)"/>
+          <polygon points="44,38 24,24 44,24" fill="rgba(0,80,0,0.15)"/>
+          <!-- @ symbol hint -->
+          <text x="24" y="32" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="rgba(0,100,0,0.6)">@</text>
+          <!-- Envelope top shine -->
+          <rect x="6" y="11" width="20" height="5" rx="1" fill="rgba(255,255,255,0.3)"/>
         </svg>
       </div>
       <div class="label">Contact Us</div>
     </div>
 
+    <!-- Blog — Document/notepad icon style -->
     <div class="desktop-icon" data-window="win-blog" tabindex="0" aria-label="Blog">
       <div class="di-img">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="6" width="32" height="40" rx="3" fill="#ab47bc"/>
-          <rect x="12" y="14" width="24" height="2" fill="#fff"/>
-          <rect x="12" y="20" width="20" height="2" fill="#ffe0fb"/>
-          <rect x="12" y="26" width="22" height="2" fill="#ffe0fb"/>
-          <rect x="12" y="32" width="16" height="2" fill="#ffe0fb"/>
-          <circle cx="14" cy="10" r="2" fill="#fff"/>
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="doc1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#e0e8f8"/>
+              <stop offset="100%" stop-color="#b8ccec"/>
+            </linearGradient>
+            <linearGradient id="doc2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7b9fd4"/>
+              <stop offset="100%" stop-color="#3a6ab0"/>
+            </linearGradient>
+          </defs>
+          <!-- Shadow -->
+          <rect x="11" y="5" width="30" height="38" rx="2" fill="rgba(0,0,0,0.15)"/>
+          <!-- Page body -->
+          <rect x="8" y="3" width="30" height="38" rx="2" fill="url(#doc1)"/>
+          <!-- Page fold (top-right corner) -->
+          <polygon points="30,3 38,3 38,11" fill="rgba(0,0,0,0.08)"/>
+          <polygon points="30,3 38,11 30,11" fill="url(#doc2)"/>
+          <!-- Fold highlight -->
+          <polyline points="30,3 30,11 38,11" stroke="rgba(255,255,255,0.6)" stroke-width="0.8" fill="none"/>
+          <!-- Text lines -->
+          <rect x="12" y="16" width="18" height="2" rx="1" fill="#3a6ab0"/>
+          <rect x="12" y="21" width="22" height="1.5" rx="0.75" fill="#7090c0"/>
+          <rect x="12" y="25" width="20" height="1.5" rx="0.75" fill="#7090c0"/>
+          <rect x="12" y="29" width="16" height="1.5" rx="0.75" fill="#7090c0"/>
+          <rect x="12" y="33" width="18" height="1.5" rx="0.75" fill="#9ab0d8"/>
+          <!-- Pen/pencil icon on page -->
+          <rect x="28" y="24" width="4" height="12" rx="1" transform="rotate(-30,30,30)" fill="#f5c842"/>
+          <polygon points="26,36 30,34 28,38" fill="#e08020"/>
+          <!-- Page shine -->
+          <rect x="9" y="4" width="14" height="16" rx="1" fill="rgba(255,255,255,0.28)"/>
         </svg>
       </div>
       <div class="label">Blog</div>
     </div>
 
+    <!-- My Computer — Windows 7 Computer icon style -->
     <div class="desktop-icon" data-window="win-mycomputer" tabindex="0" aria-label="My Computer">
       <div class="di-img">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="40" height="26" rx="3" fill="#607d8b"/>
-          <rect x="7" y="11" width="34" height="20" fill="#e3f2fd"/>
-          <rect x="18" y="34" width="12" height="4" fill="#455a64"/>
-          <rect x="12" y="38" width="24" height="2" rx="1" fill="#455a64"/>
-          <circle cx="24" cy="21" r="6" fill="#42a5f5"/>
-          <circle cx="24" cy="21" r="3" fill="#0d47a1"/>
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pc1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#d8d8d8"/>
+              <stop offset="50%" stop-color="#b0b0b0"/>
+              <stop offset="100%" stop-color="#888"/>
+            </linearGradient>
+            <linearGradient id="pc2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#e8f4ff"/>
+              <stop offset="40%" stop-color="#a8d0f8"/>
+              <stop offset="100%" stop-color="#4898e0"/>
+            </linearGradient>
+            <linearGradient id="pc3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c0c0c0"/>
+              <stop offset="100%" stop-color="#787878"/>
+            </linearGradient>
+          </defs>
+          <!-- Monitor body -->
+          <rect x="4" y="3" width="40" height="30" rx="4" fill="url(#pc1)"/>
+          <!-- Monitor bezel inner -->
+          <rect x="6" y="5" width="36" height="26" rx="3" fill="#2a2a2a"/>
+          <!-- Screen -->
+          <rect x="8" y="7" width="32" height="22" rx="2" fill="url(#pc2)"/>
+          <!-- Screen top shine -->
+          <rect x="8" y="7" width="32" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <!-- Win7 logo on screen center -->
+          <circle cx="24" cy="18" r="7" fill="rgba(0,80,180,0.2)"/>
+          <!-- 4 colored windows logo quadrants -->
+          <path d="M24,18 L17.5,11 L24,11 Z" fill="rgba(255,80,0,0.7)"/>
+          <path d="M24,18 L30.5,11 L24,11 Z" fill="rgba(0,160,80,0.7)"/>
+          <path d="M24,18 L17.5,25 L24,25 Z" fill="rgba(0,100,255,0.7)"/>
+          <path d="M24,18 L30.5,25 L24,25 Z" fill="rgba(255,180,0,0.7)"/>
+          <!-- Neck -->
+          <rect x="20" y="33" width="8" height="5" fill="url(#pc3)"/>
+          <!-- Stand base -->
+          <rect x="12" y="38" width="24" height="4" rx="2" fill="url(#pc3)"/>
+          <!-- Base highlight -->
+          <rect x="14" y="38" width="18" height="1.5" rx="0.75" fill="rgba(255,255,255,0.35)"/>
+          <!-- Webcam dot -->
+          <circle cx="24" cy="6" r="1.2" fill="#1a1a1a"/>
+          <circle cx="24.4" cy="5.6" r="0.4" fill="rgba(255,255,255,0.5)"/>
+          <!-- Monitor edge highlight -->
+          <rect x="5" y="4" width="2" height="28" rx="1" fill="rgba(255,255,255,0.2)"/>
         </svg>
       </div>
       <div class="label">My Computer</div>
@@ -435,19 +625,19 @@
         </div>
         <div class="explorer-main">
           <div class="explorer-item" ondblclick="openWindow('win-about')">
-            <div class="ei-icon">👤</div><span>About Us</span>
+            <div class="ei-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="10" r="7" fill="#4a9ad4"/><ellipse cx="16" cy="25" rx="10" ry="7" fill="#1a6aad"/></svg></div><span>About Us</span>
           </div>
           <div class="explorer-item" ondblclick="openWindow('win-services')">
-            <div class="ei-icon">🖥️</div><span>Services</span>
+            <div class="ei-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="30" height="20" rx="2" fill="#5ab0e8"/><rect x="2" y="3" width="28" height="18" rx="1" fill="#d0eaff"/><rect x="12" y="22" width="8" height="3" fill="#888"/><rect x="8" y="25" width="16" height="3" rx="1" fill="#888"/></svg></div><span>Services</span>
           </div>
           <div class="explorer-item" ondblclick="openWindow('win-portfolio')">
-            <div class="ei-icon">💼</div><span>Portfolio</span>
+            <div class="ei-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="11" y="2" width="10" height="6" rx="2" fill="#b07010"/><rect x="2" y="8" width="28" height="20" rx="2" fill="#f0b830"/><rect x="2" y="15" width="28" height="5" fill="#b07010"/><rect x="12" y="13" width="8" height="7" rx="1" fill="#c08020"/></svg></div><span>Portfolio</span>
           </div>
           <div class="explorer-item" ondblclick="openWindow('win-contact')">
-            <div class="ei-icon">📧</div><span>Contact</span>
+            <div class="ei-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="6" width="28" height="20" rx="2" fill="#5abe5a"/><polygon points="2,6 16,18 30,6" fill="#90d890"/></svg></div><span>Contact</span>
           </div>
           <div class="explorer-item" ondblclick="openWindow('win-blog')">
-            <div class="ei-icon">📝</div><span>Blog</span>
+            <div class="ei-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="1" width="20" height="28" rx="2" fill="#c8d8f0"/><polygon points="18,1 24,1 24,7" fill="#7090c0"/><rect x="7" y="10" width="12" height="2.5" rx="1" fill="#3060a0"/><rect x="7" y="15" width="14" height="2" rx="1" fill="#6080b0"/><rect x="7" y="20" width="10" height="2" rx="1" fill="#6080b0"/></svg></div><span>Blog</span>
           </div>
         </div>
       </div>
@@ -477,33 +667,41 @@
     <div class="start-pinned-divider"></div>
     <ul class="start-app-list">
       <li class="start-app-item" onclick="launchApp('win-about')">
-        <span class="start-app-icon">👤</span> About Us
+        <span class="start-app-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="7" r="5" fill="#4a9ad4"/><ellipse cx="12" cy="19" rx="8" ry="5" fill="#1a6aad"/></svg></span> About Us
       </li>
       <li class="start-app-item" onclick="launchApp('win-services')">
-        <span class="start-app-icon">🖥️</span> Services
+        <span class="start-app-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="22" height="16" rx="2" fill="#5ab0e8"/><rect x="2" y="3" width="20" height="14" rx="1" fill="#d0eaff"/><rect x="9" y="18" width="6" height="2" fill="#888"/><rect x="7" y="20" width="10" height="2" rx="1" fill="#888"/></svg></span> Services
       </li>
       <li class="start-app-item" onclick="launchApp('win-portfolio')">
-        <span class="start-app-icon">💼</span> Portfolio
+        <span class="start-app-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="2" width="6" height="4" rx="1.5" fill="#b07010"/><rect x="2" y="6" width="20" height="15" rx="2" fill="#f0b830"/><rect x="2" y="11" width="20" height="3" fill="#b07010"/><rect x="9" y="10" width="6" height="5" rx="1" fill="#c08020"/></svg></span> Portfolio
       </li>
       <li class="start-app-item" onclick="launchApp('win-contact')">
-        <span class="start-app-icon">📧</span> Contact Us
+        <span class="start-app-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" fill="#5abe5a"/><polygon points="2,4 12,13 22,4" fill="#90d890"/></svg></span> Contact Us
       </li>
       <li class="start-app-item" onclick="launchApp('win-blog')">
-        <span class="start-app-icon">📝</span> Blog
+        <span class="start-app-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="1" width="15" height="20" rx="2" fill="#c8d8f0"/><polygon points="13,1 18,1 18,6" fill="#7090c0"/><rect x="6" y="8" width="9" height="2" rx="1" fill="#3060a0"/><rect x="6" y="12" width="10" height="1.5" rx="0.75" fill="#6080b0"/><rect x="6" y="15" width="7" height="1.5" rx="0.75" fill="#6080b0"/></svg></span> Blog
       </li>
       <li class="start-app-item" onclick="launchApp('win-mycomputer')">
-        <span class="start-app-icon">💻</span> My Computer
+        <span class="start-app-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="22" height="16" rx="2" fill="#b0b0b0"/><rect x="2" y="2" width="20" height="14" rx="1" fill="#4898e0"/><rect x="9" y="17" width="6" height="3" fill="#888"/><rect x="6" y="20" width="12" height="2" rx="1" fill="#888"/></svg></span> My Computer
       </li>
     </ul>
   </div>
   <div class="start-menu-right">
     <ul class="start-right-list">
-      <li onclick="launchApp('win-mycomputer')">💻 My Computer</li>
-      <li onclick="launchApp('win-about')">📄 Documents</li>
+      <li onclick="launchApp('win-mycomputer')">
+        <svg class="sr-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="14" height="10" rx="1" fill="#b0b0b0"/><rect x="2" y="2" width="12" height="8" rx="0.5" fill="#7ab8e8"/><rect x="6" y="11" width="4" height="2" fill="#888"/><rect x="4" y="13" width="8" height="1.5" rx="0.75" fill="#888"/></svg> My Computer
+      </li>
+      <li onclick="launchApp('win-about')">
+        <svg class="sr-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="1" width="10" height="13" rx="1" fill="#c8d8f0"/><polygon points="9,1 12,1 12,4" fill="#7090c0"/><rect x="4" y="6" width="6" height="1.2" rx="0.6" fill="#3060a0"/><rect x="4" y="9" width="7" height="1" rx="0.5" fill="#6080b0"/></svg> Documents
+      </li>
       <li class="start-divider"></li>
-      <li onclick="launchApp('win-contact')">⚙️ Control Panel</li>
+      <li onclick="launchApp('win-contact')">
+        <svg class="sr-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7" fill="#888" stroke="#aaa" stroke-width="0.5"/><rect x="7" y="5" width="2" height="5" rx="1" fill="#fff"/><circle cx="8" cy="11.5" r="1" fill="#fff"/></svg> Control Panel
+      </li>
       <li class="start-divider"></li>
-      <li onclick="confirmShutdown()">⏻ Shut Down</li>
+      <li onclick="confirmShutdown()">
+        <svg class="sr-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="#f08060" stroke-width="1.5"/><rect x="7" y="3" width="2" height="5" rx="1" fill="#f08060"/></svg> Shut Down
+      </li>
     </ul>
   </div>
 </div>
@@ -518,11 +716,21 @@
 
   <!-- Quick Launch -->
   <div class="quick-launch" id="quick-launch">
-    <button class="ql-btn" title="About Us" onclick="launchApp('win-about')">👤</button>
-    <button class="ql-btn" title="Services" onclick="launchApp('win-services')">🖥️</button>
-    <button class="ql-btn" title="Portfolio" onclick="launchApp('win-portfolio')">💼</button>
-    <button class="ql-btn" title="Contact Us" onclick="launchApp('win-contact')">📧</button>
-    <button class="ql-btn" title="Blog" onclick="launchApp('win-blog')">📝</button>
+    <button class="ql-btn" title="About Us" onclick="launchApp('win-about')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="6" r="4" fill="#a8d8f8"/><ellipse cx="10" cy="16" rx="7" ry="4" fill="#4a9ad4"/></svg>
+    </button>
+    <button class="ql-btn" title="Services" onclick="launchApp('win-services')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="16" height="12" rx="1.5" fill="#5ab0e8"/><rect x="3" y="3" width="14" height="10" rx="1" fill="#d0eaff"/><rect x="7" y="14" width="6" height="2" fill="#888"/><rect x="5" y="16" width="10" height="1.5" rx="0.75" fill="#888"/></svg>
+    </button>
+    <button class="ql-btn" title="Portfolio" onclick="launchApp('win-portfolio')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="2" width="6" height="4" rx="1.5" fill="#c08020"/><rect x="2" y="5" width="16" height="12" rx="1.5" fill="#f0b830"/><rect x="2" y="9" width="16" height="3" fill="#b07010"/><rect x="8" y="8" width="4" height="5" rx="1" fill="#c08020"/></svg>
+    </button>
+    <button class="ql-btn" title="Contact Us" onclick="launchApp('win-contact')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="16" height="12" rx="1.5" fill="#5abe5a"/><polygon points="2,4 10,11 18,4" fill="#90d890"/><polygon points="2,16 8,10 2,10" fill="rgba(0,80,0,0.2)"/><polygon points="18,16 12,10 18,10" fill="rgba(0,80,0,0.2)"/></svg>
+    </button>
+    <button class="ql-btn" title="Blog" onclick="launchApp('win-blog')">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="1" width="12" height="16" rx="1.5" fill="#c8d8f0"/><polygon points="11,1 15,1 15,5" fill="rgba(0,0,0,0.1)"/><polygon points="11,1 15,5 11,5" fill="#7090c0"/><rect x="5" y="7" width="7" height="1.5" rx="0.75" fill="#3060a0"/><rect x="5" y="10" width="8" height="1.2" rx="0.6" fill="#6080b0"/><rect x="5" y="13" width="6" height="1.2" rx="0.6" fill="#6080b0"/></svg>
+    </button>
     <div class="ql-sep"></div>
   </div>
 
@@ -532,8 +740,8 @@
   <!-- System Tray -->
   <div class="system-tray">
     <div class="tray-icons">
-      <span title="Network Connected">🌐</span>
-      <span title="Sound">🔊</span>
+      <svg title="Network Connected" viewBox="0 0 16 16" style="width:16px;height:16px;cursor:default;" xmlns="http://www.w3.org/2000/svg"><path d="M2 10 Q8 4 14 10" stroke="#8cf" stroke-width="1.5" fill="none"/><path d="M4 12 Q8 7 12 12" stroke="#8cf" stroke-width="1.5" fill="none"/><circle cx="8" cy="14" r="1.5" fill="#8cf"/></svg>
+      <svg title="Sound" viewBox="0 0 16 16" style="width:16px;height:16px;cursor:default;" xmlns="http://www.w3.org/2000/svg"><polygon points="3,5 7,5 10,2 10,14 7,11 3,11" fill="#8cf"/><path d="M12 5 Q14 8 12 11" stroke="#8cf" stroke-width="1.2" fill="none"/></svg>
     </div>
     <div class="tray-clock">
       <div id="tray-time" class="tray-time">12:00</div>
@@ -562,6 +770,51 @@
 <div id="shutdown-screen" style="display:none;position:fixed;inset:0;background:#000;z-index:99999;">
   <div style="color:#fff;font-size:18pt;font-family:'Segoe UI',sans-serif;margin-bottom:16px;">Shutting down...</div>
   <div role="progressbar" style="width:200px;"><div style="width:100%;animation:progressbar 2s linear infinite;"></div></div>
+</div>
+
+<!-- Desktop right-click context menu -->
+<div id="ctx-menu" class="ctx-menu">
+  <div class="ctx-item" onclick="openWallpaperPicker()">
+    <svg style="position:absolute;left:6px;top:50%;transform:translateY(-50%);width:14px;height:14px;" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" rx="2" fill="#5ab0e8"/><circle cx="4" cy="4" r="1.5" fill="#ffe066"/><polygon points="1,10 5,6 8,9 11,5 13,8 13,13 1,13" fill="#5abe5a"/></svg>
+    Personalize (Wallpaper)
+  </div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="sortDesktopIcons()">
+    <svg style="position:absolute;left:6px;top:50%;transform:translateY(-50%);width:14px;height:14px;" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="12" height="2" rx="1" fill="#555"/><rect x="1" y="6" width="9" height="2" rx="1" fill="#555"/><rect x="1" y="10" width="11" height="2" rx="1" fill="#555"/></svg>
+    Sort Icons By Name
+  </div>
+  <div class="ctx-item" onclick="refreshDesktop()">
+    <svg style="position:absolute;left:6px;top:50%;transform:translateY(-50%);width:14px;height:14px;" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M7 2 A5 5 0 1 1 2 7" stroke="#555" stroke-width="1.5" fill="none" stroke-linecap="round"/><polygon points="2,4 2,8 6,6" fill="#555"/></svg>
+    Refresh
+  </div>
+</div>
+
+<!-- Wallpaper Picker Panel -->
+<div id="wp-picker" class="wp-picker">
+  <div class="wp-picker-title">
+    🎨 Choose Wallpaper
+    <button onclick="document.getElementById('wp-picker').classList.remove('open')">✕</button>
+  </div>
+  <div class="wp-grid">
+    <div class="wp-swatch wp-aurora-swatch active" data-wp="wp-aurora" onclick="setWallpaper('wp-aurora',this)" title="Aurora (Default)">
+      <span>Aurora</span>
+    </div>
+    <div class="wp-swatch wp-bliss-swatch" data-wp="wp-bliss" onclick="setWallpaper('wp-bliss',this)" title="Bliss (XP Hills)">
+      <span>Bliss</span>
+    </div>
+    <div class="wp-swatch wp-dusk-swatch" data-wp="wp-dusk" onclick="setWallpaper('wp-dusk',this)" title="Dusk">
+      <span>Dusk</span>
+    </div>
+    <div class="wp-swatch wp-night-swatch" data-wp="wp-night" onclick="setWallpaper('wp-night',this)" title="Starfield">
+      <span>Night Sky</span>
+    </div>
+    <div class="wp-swatch wp-forest-swatch" data-wp="wp-forest" onclick="setWallpaper('wp-forest',this)" title="Forest">
+      <span>Forest</span>
+    </div>
+    <div class="wp-swatch wp-energy-swatch" data-wp="wp-energy" onclick="setWallpaper('wp-energy',this)" title="Energy Blue">
+      <span>Energy</span>
+    </div>
+  </div>
 </div>
 
 <script src="assets/js/ui.js"></script>
